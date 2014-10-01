@@ -9,8 +9,8 @@
     ],
     "autoload": {
          "psr-4": {
-             "Netshine\\Scaffold\\":"netshine/scaffold/src",
-             "Netshine\\Scaffold\\Tools\\":"netshine/scaffold/tools"
+             "Netshine\\Scaffold\\":"src",
+             "Netshine\\Scaffold\\Tools\\":"tools"
          }
     },
     "require": {
