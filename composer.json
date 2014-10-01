@@ -1,0 +1,26 @@
+{
+    "name":"netshine/scaffold",
+    "type":"library",
+    "description":"micro framework for CMS integration",
+    "authors": [
+        {
+            "name":"Russell Walker"
+        }
+    ],
+    "autoload": {
+         "psr-4": {
+             "Netshine\\Scaffold\\":"netshine/scaffold/src",
+             "Netshine\\Scaffold\\Tools\\":"netshine/scaffold/tools"
+         }
+    },
+    "require": {
+        "php":">5.4.0",
+        "willdurand/negotiation": "@stable",
+        "doctrine/common": "2.4.*",
+        "doctrine/dbal": "2.5.0-BETA3",
+        "doctrine/orm": "2.5.*",
+        "doctrine/migrations": "dev-master",
+        "pimple/pimple": "~2.1@dev"
+    },
+    "minimum-stability": "dev"
+}

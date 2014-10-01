@@ -1,0 +1,72 @@
+.tab-title
+{
+    float:left;
+    background-color:#ddd;
+    border:solid 1px #999;
+    text-align:center !important;
+    vertical-align:middle;
+    cursor:pointer;
+    overflow:hidden;
+    position:relative;
+    z-index: 10;
+    margin-left:3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: auto;
+    max-width:175px;
+    height:20px;
+
+    -moz-border-radius: 7px 7px 0px 0px;
+    -webkit-border-radius: 7px 7px 0px 0px;
+    border-radius: 7px 7px 0px 0px;
+}
+.tab-title:hover
+{
+    background-color:#eee;
+}
+.tab-title.selected
+{
+    border-bottom: solid 1px #fff;
+    background-color:#fff;
+}
+.tab-title.plain_link
+{
+    border:none;
+    background-color:transparent;
+}
+.tab-title.plain_link:hover
+{
+    background-color:transparent;
+}
+.tab-content
+{
+    clear:both;
+    border: solid 1px #999;
+    padding: 5px;
+    position:relative;
+    top:-1px;
+
+    -moz-border-radius: 3px 7px 7px 7px;
+    -webkit-border-radius: 3px 7px 7px 7px;
+    border-radius: 3px 7px 7px 7px;
+}
+
+@media all and (max-width: 499px)
+{
+    .tab-title
+    {
+        max-width:130px;
+    }
+    .responsive-tabs .tab-title, .responsive-tabs .tab-title.selected
+    {
+        float:none;
+        border: solid 1px #999;
+        margin-top:-1px;
+
+        -moz-border-radius: 0px;
+        -webkit-border-radius: 0px;
+        border-radius: 0px;
+        margin-left:0px;
+        max-width: 100%;
+    }
+}

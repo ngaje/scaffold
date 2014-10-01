@@ -1,0 +1,68 @@
+.nicEdit-main, textarea.fld-html
+{
+    background-color:#ffffff;
+    height:250px;
+    width: 500px !important;
+}
+.nicEdit-container > div
+{
+    width: 500px !important;
+}
+.nicEdit-container
+{
+    height:320px;
+    width: 510px;
+    float:left;
+}
+.field.type_html:after {
+   content: ".";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+@media all and (max-width: 699px) {
+    .nicEdit-main, .nicEdit-container > div, textarea.fld-html
+    {
+        width: 400px !important;
+    }
+    .nicEdit-container
+    {
+        width: 410px !important;
+    }
+}
+
+@media all and (max-width: 599px) {
+    .nicEdit-main, .nicEdit-container > div, textarea.fld-html
+    {
+        width: 300px !important;
+    }
+    .nicEdit-container
+    {
+        width: 310px !important;
+        height: 340px;
+    }
+}
+
+@media all and (max-width: 481px) {
+    .nicEdit-main, .nicEdit-container > div, textarea.fld-html
+    {
+        width: 260px !important;
+    }
+    .nicEdit-container
+    {
+        width: 270px !important;
+        height: 360px;
+    }
+}
+
+@media all and (max-width: 399px) {
+    .nicEdit-main, .nicEdit-container > div, .nicEdit-container, textarea.fld-html
+    {
+        width: 210px !important;
+    }
+    .nicEdit-container
+    {
+        width: 220px !important;
+    }
+}
