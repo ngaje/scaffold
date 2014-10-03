@@ -43,7 +43,10 @@ class Request
         $lang = "en-GB";
         if ($this->getHeader('Accept-Language', false)) {
             $negotiator = new \Negotiation\Negotiator();
-            $lang = $negotiator->getBest($this->getHeader('Accept-Language'), $this->language->getAllLanguageStrings())->getValue();
+            $best = $negotiator->getBest($this->getHeader('Accept-Language'), $this->language->getAllLanguageStrings());
+            if ($best) {
+                $lang = $best->getValue();
+            }
         }
         $this->language->setLanguage($lang, $profile_id);
     }
