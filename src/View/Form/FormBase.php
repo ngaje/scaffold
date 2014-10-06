@@ -13,6 +13,8 @@ abstract class FormBase
     protected $cms;
     /** @var Language **/
     protected $language;
+    /** @var boolean **/
+    protected $initialised = false;
 
     /** @var FormRenderer **/
     public $renderer;
@@ -68,12 +70,18 @@ abstract class FormBase
 
     public function render()
     {
+        if (!$this->initialised) {
+            $this->initialise();
+        }
         if (isset($this->renderer)) {
             $this->renderer->render();
         }
     }
 
-    abstract protected function initialise();
+    protected function initialise()
+    {
+        $this->initialised = true;
+    }
 
     public function addFieldSet(FieldSet $field_set)
     {
