@@ -3,6 +3,7 @@ namespace Netshine\Scaffold\View\Form;
 
 use Netshine\Scaffold\Language;
 use Netshine\Scaffold\ICms;
+use Netshine\Scaffold\Url;
 use Netshine\Scaffold\View\Form\FieldTypes\FieldText;
 
 class FieldFactory
@@ -22,11 +23,26 @@ class FieldFactory
     }
 
     /**
+    * @param string $form_resource
+    * @param string $form_method
+    * @param string $name
+    * @param string $id
+    * @return FormBase
+    */
+    public function createForm($form_resource = '', $form_method = 'post', $name = '', $id = '')
+    {
+        $form = new FormBase($this, $this->cms, $this->language, $form_resource, $form_method, $name, $id);
+        $form_renderer = new FormRenderer($form, new Url());
+        $form->renderer = $form_renderer;
+        return $form;
+    }
+
+    /**
     * @param string $legend
     * @param string $id
     * @return FieldSet
     */
-    public function createFieldSet(FormBase $form, $legend = '', $id = '')
+    public function createFieldSet(FormBase $form = null, $legend = '', $id = '')
     {
         $field_set = new FieldSet($legend, $id);
         $field_set->parent_form = $form;

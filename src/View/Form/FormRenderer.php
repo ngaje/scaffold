@@ -107,28 +107,35 @@ class FormRenderer
             <?php
             foreach ($this->form->field_sets as $field_set)
             {
-                if ($field_set->published && ($field_set_id == null || $field_set_id == $field_set->id)) {
-                    ?>
-                    <<?php echo $field_set->fieldset_tag; if (strlen($field_set->id) > 0) {echo ' id="' . $field_set->id . '"';} ?><?php if (strlen($field_set->css_class) > 0) { ?> class="<?php echo $field_set->css_class; ?>"<?php } ?>>
-                        <?php if (strlen($field_set->legend) > 0) {
-                            $legend_tag = $field_set->fieldset_tag == 'fieldset' ? 'legend' : 'div';
-                            ?>
-                            <<?php echo $legend_tag ?>><?php echo $field_set->legend; ?></<?php echo $legend_tag; ?>>
-                            <?php
-                        }
-                        foreach ($field_set->fields as $field)
-                        {
-                            if (isset($field->renderer)) {
-                                $field->renderer->render();
-                            }
-                        } ?>
-                    </<?php echo $field_set->fieldset_tag; ?>>
-                    <?php
+                if ($field_set_id == null || $field_set_id == $field_set->id) {
+                    $this->renderFieldSet($field_set);
                 }
             }
             ?>
         </div>
         <?php
+    }
+
+    public function renderFieldSet(FieldSet $field_set)
+    {
+        if ($field_set->published) {
+            ?>
+            <<?php echo $field_set->fieldset_tag; if (strlen($field_set->id) > 0) {echo ' id="' . $field_set->id . '"';} ?><?php if (strlen($field_set->css_class) > 0) { ?> class="<?php echo $field_set->css_class; ?>"<?php } ?>>
+                <?php if (strlen($field_set->legend) > 0) {
+                    $legend_tag = $field_set->fieldset_tag == 'fieldset' ? 'legend' : 'div';
+                    ?>
+                    <<?php echo $legend_tag ?>><?php echo $field_set->legend; ?></<?php echo $legend_tag; ?>>
+                    <?php
+                }
+                foreach ($field_set->fields as $field)
+                {
+                    if (isset($field->renderer)) {
+                        $field->renderer->render();
+                    }
+                } ?>
+            </<?php echo $field_set->fieldset_tag; ?>>
+            <?php
+        }
     }
 
     public function renderMandatoryKey()

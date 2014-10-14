@@ -12,6 +12,9 @@ class Url
     public $query;
     public $fragment;
 
+    /** @var string **/
+    protected static $cache;
+
     public function __construct($url = null)
     {
         if ($url) {
@@ -76,5 +79,109 @@ class Url
             }
         }
         $this->query = implode('&', $new_querystring);
+    }
+
+    public function get($timeout = 20, $force_refresh = false)
+    {
+        $contents = false;
+        if (strlen($this->getFullUrl()) > 0) {
+            if (!$force_refresh) {
+                if (isset(self::$cache) && strlen(self::$cache) > 0) {
+                    return self::$cache;
+                }
+            }
+            if (ini_get('allow_url_fopen') == '1') {
+                $contents = $this->getUsingFile($timeout);
+            }
+            if ($contents === false && function_exists('curl_init')) {
+                $contents = $this->getUsingCurl($timeout);
+            }
+            if ($contents === false) {
+                $contents = $this->getUsingSockets($timeout);
+            }
+
+            self::$cache = $contents;
+        }
+        return $contents;
+    }
+
+    protected function getUsingFile($timeout)
+    {
+        $options = array(
+                'http'=>array(
+                'method'=>"GET",
+                'timeout'=>$timeout,
+                'header'=>"Accept-language: en\r\n"
+                )
+        );
+        $context = stream_context_create($options);
+        return file_get_contents($this->getFullUrl(), null, $context);
+    }
+
+    protected function getUsingCurl($timeout)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->getFullUrl());
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); //Allow redirects
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); //Return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_HTTPGET, 0); //use GET
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+    protected function getUsingSockets($timeout)
+    {
+        $url_parts = parse_url($this->getFullUrl());
+        if (!isset($url_parts['path'])) {
+            $url_parts['path'] = '/';
+        }
+        if (!isset($url_parts['query'])) {
+            $url_parts['query' ] = '';
+        }
+
+        $header = "Host: " . $url_parts['host'] . "\r\n";
+        $header .= "User-Agent: Mozilla\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($url_parts['query']) . "\r\n";
+        $header .= "Connection: close\r\n\r\n";
+
+        $errno = '';
+        $errstr = '';
+        $fp = @fsockopen($url_parts['host'], 80, $errno, $errstr, $timeout);
+        if ($fp) {
+            $out = '';
+            stream_set_timeout($fp, $timeout);
+            fputs($fp, "GET " . $url_parts['path'] . "  HTTP/1.1\r\n");
+            fputs($fp, $header. $url_parts['query']);
+            fwrite($fp, $out);
+            $info = stream_get_meta_data($fp);
+            $result = "";
+            if ($info['timed_out']) {
+                @fclose($fp);
+                return false;
+            }
+            while (!feof($fp)) {
+                $info = stream_get_meta_data($fp);
+                if ($info['timed_out']) {
+                    @fclose($fp);
+                    return false;
+                }
+                $result .= fread($fp, 4096);
+            }
+            fclose($fp);
+            if (strlen($result) > 0) {
+                //Strip the HTTP headers.
+                $pos = strpos($result, "\r\n\r\n");
+                if ($pos !== false) {
+                    $result = substr($result, $pos + 4);
+                }
+                return $result;
+            } else {
+                return false;
+            }
+        }
     }
 }

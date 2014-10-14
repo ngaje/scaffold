@@ -41,10 +41,45 @@ class FieldSet
         return false;
     }
 
+    public function &getField($field_name, $include_unpublished = false)
+    {
+        foreach ($this->fields as $field) {
+            if ($field->name == $field_name && $field->published) {
+                return $field;
+            }
+            if ($field->type == 'container' && $field->published) {
+                $field_set = $field->field_set;
+                $child_field = $field_set->getField($field_name, false);
+                if ($child_field) {
+                    return $child_field;
+                }
+            }
+        }
+        if ($include_unpublished) {
+            reset($this->fields);
+            unset($field);
+            foreach ($this->fields as $field)
+            {
+                if ($field->name == $field_name) {
+                    return $field;
+                }
+                if ($field->type == 'container') {
+                    $field_set = $field->field_set;
+                    $child_field = $field_set->getField($field_name, true);
+                    if ($child_field) {
+                        return $child_field;
+                    }
+                }
+            }
+        }
+        $result = null; //Have to return by reference
+        return $result;
+    }
+
     public function render()
     {
         if ($this->published) {
-            $this->parent_form->renderer->renderFieldSets($this->id);
+            $this->parent_form->renderer->renderFieldSet($this);
         }
     }
 }

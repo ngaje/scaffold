@@ -130,7 +130,7 @@ class FieldRenderer
         if ($this->field->help_text) {
             $elem_id = 'help_' . $this->field->id;
             ?>
-            <a title="<?php echo $this->language->global['help']; ?>" href="javascript:void(0);" onclick="var help=document.getElementById('<?php echo $elem_id; ?>');help.style.display=help.style.display=='none'?'':'none';this.blur();return false;"><?php
+            <a title="<?php echo $this->language->global['help']; ?>" href="javascript:void(0);" onclick="$('#<?php echo $elem_id; ?>').slideToggle(400);this.blur();return false;"><?php
                 ?><img src="<?php echo $this->language->routing['bare_entry_url']; ?>&resource=image&id=help.png" border="0" alt="<?php echo $this->language->global['help']; ?>" /><?php
             ?></a>
 

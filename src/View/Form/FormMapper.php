@@ -65,6 +65,7 @@ class FormMapper
 
     /**
     * @param DomainObjectBase $domain_object
+    * @param boolean $labels_only
     * @return FormBase
     */
     public function mapFormFromEntity(DomainObjectBase $domain_object, $labels_only = false)
@@ -96,11 +97,11 @@ class FormMapper
                 $child_properties = $child_object->getProperties(true);
                 $prefix = $property . '_';
                 $this->applyPropertyMappings($child_object, $child_properties, $direction, $prefix, $labels_only);
-            } else if ($data_type == 'DateTime') {
+            } else if ($data_type == 'DateTime' || $data_type == '\DateTime') {
                 if ($direction == self::DIRECTION_ENTITY_TO_FORM) {
                     $date_value = $domain_object->$property;
                     if ($date_value && $date_value instanceof \DateTime) {
-                        $this->mapEntityValueToField($property, $domain_object->$property->format('Y-m-d'));
+                        $this->mapEntityValueToField($property, $domain_object->$property);
                     }
                 } else {
                     $date_field = $this->form->getField($property, true);
@@ -175,10 +176,27 @@ class FormMapper
     {
         $field = $this->form->getField($field_name);
         if ($field !== null) {
-            if ($field->type == 'label') {
-                $field->setValueRaw($entity_value);
-            } else {
-                $field->setValue($entity_value);
+            switch ($field->type) {
+                case 'label':
+                    $field->setValueRaw($entity_value);
+                    break;
+                case 'date':
+                    if ($entity_value instanceof \DateTime) {
+                        $field->setValue($entity_value->format('Y-m-d'));
+                    } else {
+                        $field->setValue($entity_value);
+                    }
+                    break;
+                case 'datetime-local':
+                    if ($entity_value instanceof \DateTime) {
+                        $field->setValue($entity_value->format('Y-m-d\TH:i'));
+                    } else {
+                        $field->setValue($entity_value);
+                    }
+                    break;
+                default:
+                    $field->setValue($entity_value);
+                    break;
             }
         }
     }

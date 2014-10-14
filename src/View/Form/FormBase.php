@@ -5,7 +5,7 @@ use Netshine\Scaffold\ICms;
 use Netshine\Scaffold\Language;
 use Netshine\Scaffold;
 
-abstract class FormBase
+class FormBase
 {
     /** @var FieldFactory **/
     protected $factory;
@@ -157,26 +157,20 @@ abstract class FormBase
         foreach ($this->field_sets as &$field_set)
         {
             if ($field_set->published) {
-                foreach ($field_set->fields as &$field)
-                {
-                    if ($field->name == $field_name && $field->published) {
-                        return $field;
-                    }
+                $field = $field_set->getField($field_name, false);
+                if ($field) {
+                    return $field;
                 }
             }
         }
-
         if ($include_unpublished) {
             reset($this->field_sets);
             unset($field_set);
-            unset($field);
             foreach ($this->field_sets as &$field_set)
             {
-                foreach ($field_set->fields as &$field)
-                {
-                    if ($field->name == $field_name) {
-                        return $field;
-                    }
+                $field = $field_set->getField($field_name, true);
+                if ($field) {
+                    return $field;
                 }
             }
         }
