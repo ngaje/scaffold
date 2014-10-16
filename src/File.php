@@ -12,7 +12,7 @@ class File
 
     protected $handle;
 
-    public function __construct($file_name, $content_type)
+    public function __construct($file_name, $content_type = 'application/octet-stream')
     {
         $this->file_name = $file_name;
         $this->content_type = $content_type;
@@ -47,6 +47,11 @@ class File
     {
         $this->contents = file_get_contents($this->file_name);
         return $this->contents;
+    }
+
+    public function putContents()
+    {
+        return file_put_contents($this->file_name, $this->contents);
     }
 
     public function open($mode = 'r')
@@ -147,5 +152,10 @@ class File
     public function delete()
     {
         unlink($this->file_name);
+    }
+
+    public function getName()
+    {
+        return $this->file_name;
     }
 }
