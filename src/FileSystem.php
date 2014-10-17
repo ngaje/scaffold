@@ -68,6 +68,10 @@ class FileSystem
     {
         if (file_exists($directory)) {
             $this->emptyDirectory($directory);
+            if (count(glob($directory . "/*")) > 0) {
+                clearstatcache();
+                usleep(100000);
+            }
             return rmdir($directory);
         }
     }
@@ -99,6 +103,31 @@ class FileSystem
         $file_strategy = function($file_name) {$this->files[] = new File($file_name);};
         $this->iterateFiles($directory, $excluded_directories, $excluded_files, $patterns, null, $file_strategy);
         return $this->files;
+    }
+
+    /**
+    * Recursively search every directory and file, returning those who match the given patterns, are not excluded, and which contain the search text
+    * @param string $directory
+    * @param array $searches Array of strings to search for
+    * @param array $excluded_directories
+    * @param array $excluded_files
+    * @param array $patterns
+    */
+    public function findInFiles($directory, $searches, $excluded_directories = array(), $excluded_files = array(), $patterns = array())
+    {
+        $matches = array();
+        $files = $this->findFiles($directory, $excluded_directories, $excluded_files, $patterns);
+        foreach ($files as $file) {
+            $contents = file_get_contents($file->getName());
+            $contents_changed = false;
+            foreach ($searches as $index=>$search) {
+                if (strpos($contents, $search) !== false) {
+                    $matches[] = $file;
+                    break;
+                }
+            }
+        }
+        return $matches;
     }
 
     /**
