@@ -21,8 +21,16 @@ class FieldRendererRadioList extends FieldRenderer
         foreach ($this->field->options as $value=>$description)
         {
             ?>
-            <input type="radio" name="<?php echo $this->field->name; ?>" <?php $this->outputId('', $value); ?> value="<?php echo $value; ?>"<?php if ($this->field->value == $value) {echo ' checked="checked"';} ?> class="field-control-radio <?php echo $this->field->css_class; ?>"><label class="radio-label" for="<?php echo $this->field->name; ?>_<?php echo $value; ?>"><?php echo $description; ?></label><br />
+            <input type="radio" name="<?php echo $this->field->name; ?>" <?php $this->outputId('', $value); ?> value="<?php echo $value; ?>"<?php if ($this->field->value == $value) {echo ' checked="checked"';} ?> class="field-control-radio <?php echo $this->field->css_class; ?>"<?php $this->outputOptionAttributes($value); ?>><label class="radio-label" for="<?php echo $this->field->name; ?>_<?php echo $value; ?>"><?php echo $description; ?></label><br />
             <?php
+        }
+    }
+
+    protected function outputOptionAttributes($value)
+    {
+        $attributes = array_key_exists($value, $this->field->option_attributes) ? $this->field->option_attributes[$value] : array();
+        foreach ($attributes as $attribute_key=>$attribute_value) {
+            echo ' ' . $attribute_key . '="' . $attribute_value . '"';
         }
     }
 }

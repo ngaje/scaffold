@@ -133,7 +133,7 @@ class FileSystem
     /**
     * Recursively search every directory and file, replacing the search text with the replace text wherever it is found
     * @param string $directory
-    * @param array $searches Array of strings to search for (must have corresponding entry in $replaces array)
+    * @param array $searches Array of strings to search for or arrays of start and end tokens for blocks to be replaced (if using arrays, element 0 must be start token and element 1 must be end token. All entires in $searches array must also have corresponding entry in $replaces array)
     * @param array $replaces Array of strings to replace with (indexes must match $searches array)
     * @param array $excluded_directories
     * @param array $excluded_files
@@ -141,20 +141,54 @@ class FileSystem
     */
     public function replaceInFiles($directory, $searches, $replaces, $excluded_directories = array(), $excluded_files = array(), $patterns = array())
     {
+        if (count($patterns) == 0) {
+            //Default to php, js, css, html, xml, json, and txt
+            $patterns[] = '/\.php$/i';
+            $patterns[] = '/\.js$/i';
+            $patterns[] = '/\.css$/i';
+            $patterns[] = '/\.txt$/i';
+            $patterns[] = '/\.html$/i';
+            $patterns[] = '/\.xml/i';
+            $patterns[] = '/\.json$/i';
+        }
         $files = $this->findFiles($directory, $excluded_directories, $excluded_files, $patterns);
         foreach ($files as $file) {
             $contents = file_get_contents($file->getName());
             $contents_changed = false;
             foreach ($searches as $index=>$search) {
-                if (strpos($contents, $search) !== false) {
-                    $contents = str_replace($search, $replaces[$index], $contents);
-                    $contents_changed = true;
+                if (is_array($search) && count($search == 2) && array_key_exists(0, $search) && array_key_exists(1, $search)) {
+                    $start = $search[0];
+                    $end = $search[1];
+                    $contents_changed = $this->replaceByToken($contents, $start, $end, $replaces[$index]);
+                } else {
+                    if (strpos($contents, $search) !== false) {
+                        $contents = str_replace($search, $replaces[$index], $contents);
+                        $contents_changed = true;
+                    }
                 }
             }
             if ($contents_changed) {
                 file_put_contents($file->getName(), $contents);
             }
         }
+    }
+
+    protected function replaceByToken(&$contents, $start, $end, $replace)
+    {
+        $contents_changed = false;
+        $start_pos = strpos($contents, $start);
+        while ($start_pos !== false) {
+            $end_pos = strpos($contents, $end, $start_pos);
+            if ($end_pos !== false) {
+                $end_pos += strlen($end);
+                $contents = substr($contents, 0, $start_pos) . $replace . substr($contents, $end_pos);
+                $start_pos = $start_pos < strlen($contents) ? strpos($contents, $start, $start_pos + 1) : false;
+                $contents_changed = true;
+            } else {
+                break;
+            }
+        }
+        return $contents_changed;
     }
 
     /**

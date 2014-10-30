@@ -61,6 +61,8 @@ class FormBase
         $this->id = $id ? $id : $this->name;
         $submission_id = htmlentities(@$_REQUEST['submission_id']);
         $this->submission_id = strlen($submission_id) == 13 ? $submission_id : uniqid();
+        $js = htmlentities($language->routing['bare_entry_url'] . '&resource=js&id=form');
+        $this->cms->addJavascript($js);
     }
 
     public function setRenderer(FormRenderer $renderer)
@@ -192,7 +194,11 @@ class FormBase
             $attributes['maxlength'] = $maxlength;
         }
         if ($value !== null) {
-            $field->setValue($value);
+            if ($type == 'label') {
+                $field->setValueRaw($value);
+            } else {
+                $field->setValue($value);
+            }
         }
         $field->required = $required;
         $field->attributes = array_merge($field->attributes, $attributes);
@@ -231,14 +237,20 @@ class FormBase
         {
             foreach ($field_set->fields as &$field)
             {
-                $valid = $field->validate($suppress_errors);
-                if ($valid) {
-                    $success = $valid ? $success : false;
-                    $field->process($this->message);
-                } else {
-                    $success = false;
-                    if ($suppress_errors) {
-                        $field->error = '';
+                if ($field->published) {
+                    if ($field->required && $field->value =='') {
+                        $field->error = $this->language->form['err_fld_required'];
+                        $success = false;
+                    }
+                    $valid = $field->validate($suppress_errors);
+                    if ($valid) {
+                        $success = $valid ? $success : false;
+                        $field->process($this->message);
+                    } else {
+                        $success = false;
+                        if ($suppress_errors) {
+                            $field->error = '';
+                        }
                     }
                 }
             }

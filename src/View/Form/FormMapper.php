@@ -29,7 +29,7 @@ class FormMapper
             if ($key == 'id') {
                 $this->form->record_id = substr($value, 0, 3) == 'new' ? $value : intval($value);
             }
-            if ($this->form->fieldExists($key)) {
+            if ($this->form->fieldExists($key, true)) {
                 $field = $this->form->getField($key);
                 $field->setValue($this->request->getRequestParam($key));
                 if (array_key_exists('confirm_' . $key, $_REQUEST)) {
@@ -70,6 +70,9 @@ class FormMapper
     */
     public function mapFormFromEntity(DomainObjectBase $domain_object, $labels_only = false)
     {
+        if (isset($domain_object->id)) {
+            $this->form->record_id = $domain_object->id;
+        }
         return $this->mapEntityFields($domain_object, self::DIRECTION_ENTITY_TO_FORM, $labels_only);
     }
 

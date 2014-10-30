@@ -31,6 +31,7 @@ class DomainObjectBase implements \JsonSerializable
                             case 'double':
                             case 'float':
                             case 'decimal':
+                            case 'array':
                                 $properties[str_replace('$', '', trim($property_elements[1]))] = $property_elements[0];
                                 break;
                         }

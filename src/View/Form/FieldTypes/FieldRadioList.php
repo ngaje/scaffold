@@ -5,5 +5,5 @@ use Netshine\Scaffold\View\Form\FieldBase;
 
 class FieldRadioList extends FieldBase
 {
-
+    public $option_attributes = array();
 }
