@@ -24,6 +24,9 @@ class FormMapper
 
     public function mapFormFromRequest()
     {
+        if (!$this->form->initialised) {
+            $this->form->initialise();
+        }
         foreach ($_REQUEST as $key=>$value)
         {
             if ($key == 'id') {
@@ -70,6 +73,9 @@ class FormMapper
     */
     public function mapFormFromEntity(DomainObjectBase $domain_object, $labels_only = false)
     {
+        if (!$this->form->initialised) {
+            $this->form->initialise();
+        }
         if (isset($domain_object->id)) {
             $this->form->record_id = $domain_object->id;
         }
@@ -82,6 +88,9 @@ class FormMapper
     */
     public function mapEntityFromForm(DomainObjectBase $domain_object)
     {
+        if (!$this->form->initialised) {
+            $this->form->initialise();
+        }
         return $this->mapEntityFields($domain_object, self::DIRECTION_FORM_TO_ENTITY);
     }
 

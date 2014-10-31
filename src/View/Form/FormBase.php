@@ -14,7 +14,7 @@ class FormBase
     /** @var Language **/
     protected $language;
     /** @var boolean **/
-    protected $initialised = false;
+    public $initialised = false;
 
     /** @var FormRenderer **/
     public $renderer;

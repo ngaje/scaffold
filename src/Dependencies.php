@@ -137,9 +137,15 @@ class Dependencies
         }
         if (!class_exists($class_name)) {
             //See if we have a vanilla version
-            $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $class_prefix . $this->class_suffix;
+            $class_name = $this->routing_config->{'namespace_' . $namespace_type} . $class_prefix;
             if (!class_exists($class_name)) {
-                $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $this->class_suffix . '\\' . $class_prefix . $this->class_suffix;
+                $class_name = $this->routing_config->{'namespace_' . $namespace_type} . 'Form\\' . $class_prefix;
+                if (!class_exists($class_name)) {
+                    $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $class_prefix . $this->class_suffix;
+                    if (!class_exists($class_name)) {
+                        $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $this->class_suffix . '\\' . $class_prefix . $this->class_suffix;
+                    }
+                }
             }
         }
         return $class_name;
