@@ -49,8 +49,12 @@ class Router
         $this->container['cms'] = $this->cms;
         $this->container['request'] = $this->request;
         $db_config = $this->db_config;
-        $this->container['db'] = function ($c) use ($db_config) {
-            return new Database($db_config->dsn, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
+        $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false;
+
+        $this->container['db'] = function ($c) use ($db_config, $dev_mode) {
+            $db = new Database($db_config->dsn, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
+            $db->setDevMode($dev_mode);
+            return $db;
         };
         $this->container['pagination'] = function ($c) {
             return new Pagination($c['cms'], 25, 0, 1, 15);

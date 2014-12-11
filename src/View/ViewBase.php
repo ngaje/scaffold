@@ -56,10 +56,8 @@ abstract class ViewBase
     */
     public function initialise()
     {
-        if (isset($this->form->renderer)) {
-            //Include JQuery early, so that feature-specific javascript files can use it straight away
-            $this->cms->addJavascript($this->language->routing['bare_entry_url'] . '&resource=js&id=jquery/jquery-1.11.1.min.js');
-        }
+        //Include JQuery early, so that feature-specific javascript files can use it straight away
+        $this->cms->addJavascript($this->language->routing['bare_entry_url'] . '&resource=js&id=jquery/jquery-1.11.1.min.js');
     }
 
     public function renderSortButtons($col_name, Url $url = null)

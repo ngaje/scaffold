@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 class Database extends \PDO
 {
     private $dev_mode = true;
+    private $doctrine_cache = null;
     private $jloader_unreg = false;
 
     private $host = 'localhost';
@@ -35,6 +36,19 @@ class Database extends \PDO
         parent::__construct($this->dsn, $this->username, $this->password, $driver_options);
     }
 
+    public function setDevMode($value)
+    {
+        $this->dev_mode = $value ? true : false;
+        if ($this->dev_mode) {
+            $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
+        }
+    }
+
+    public function setDoctrineCache($value)
+    {
+        $this->doctrine_cache = $value;
+    }
+
     public function getDoctrine()
     {
         if (!isset($this->entity_manager)) {
@@ -48,7 +62,7 @@ class Database extends \PDO
             }
 
             //Set up Doctrine
-            $doctrine_config = Setup::createAnnotationMetadataConfiguration(array($this->path_to_entities), $this->dev_mode);
+            $doctrine_config = Setup::createAnnotationMetadataConfiguration(array($this->path_to_entities), $this->dev_mode, null, $this->doctrine_cache);
             if ($this->dev_mode) {
                 $doctrine_config->setAutoGenerateProxyClasses(true);
             } else {
