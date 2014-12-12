@@ -15,6 +15,7 @@ class ServiceCron extends ServiceBase
 
     public function runCronJobs($task = 'ALL')
     {
+        $task = $task == null ? 'ALL' : $task;
         foreach ($this->cron_tasks as $cron_task) {
             if ($task == 'ALL' || strpos(strtolower(get_class($cron_task)), strtolower($task)) !== false) {
                 $cron_task->executeCronTask();
