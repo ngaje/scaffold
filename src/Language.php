@@ -22,6 +22,17 @@ class Language
         $this->setLanguage($language, $profile_id);
     }
 
+    public function setLanguageFolder($language_folder)
+    {
+        $this->language_folder = $language_folder;
+        $this->language_resources = array();
+    }
+
+    public function getLanguageFolder()
+    {
+        return $this->language_folder;
+    }
+
     /**
     * Functional language arrays are lazy loaded
     * @param mixed $property
