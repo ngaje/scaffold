@@ -22,7 +22,7 @@ class FormMapper
         $this->form = $form;
     }
 
-    public function mapFormFromRequest()
+    public function mapFormFromRequest($raw_values = array())
     {
         if (!$this->form->initialised) {
             $this->form->initialise();
@@ -34,7 +34,11 @@ class FormMapper
             }
             if ($this->form->fieldExists($key, true)) {
                 $field = $this->form->getField($key);
-                $field->setValue($this->request->getRequestParam($key));
+                if (array_search($key, $raw_values) !== false) {
+                    $field->setValueRaw($this->request->getRequestParam($key));
+                } else {
+                    $field->setValue($this->request->getRequestParam($key));
+                }
                 if (array_key_exists('confirm_' . $key, $_REQUEST)) {
                     $field->setConfirmValue($this->request->getRequestParam('confirm_' . $key));
                 }

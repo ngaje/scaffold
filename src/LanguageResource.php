@@ -41,6 +41,12 @@ class LanguageResource implements \ArrayAccess
         static $depth = 1; //Protect against circular references
 
         $value = "";
+        $sprintf_tokens = array();
+        if (!isset($this->resource_elements[$offset]) && strpos($offset, '%') !== false) {
+            //Extract sprintf tokens
+            $sprintf_tokens = explode('%', $offset);
+            $offset = array_shift($sprintf_tokens);
+        }
         if (isset($this->resource_elements[$offset])) {
             $depth++;
             if ($depth < 10) {
@@ -61,6 +67,13 @@ class LanguageResource implements \ArrayAccess
                 throw new Exception("CIRCULAR REFERENCE: " . $this->resource_name . "[" . $offset . "]");
             }
             $depth--;
+        }
+
+        if (count($sprintf_tokens) > 0) {
+            $orig_value = $value;
+            array_unshift($sprintf_tokens, $value);
+            $value = @call_user_func_array('sprintf', $sprintf_tokens);
+            $value = $value ? $value : $orig_value;
         }
 
         return isset($this->resource_elements[$offset]) ? $value : null;
