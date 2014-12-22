@@ -151,7 +151,7 @@ class FieldRenderer
             $type = $this->field->type;
         }
         ?>
-        <input type="<?php echo $type; ?>" name="<?php echo ($confirmation ? 'confirm_' : '') . $this->field->name; ?>" class="field-control fld-<?php echo $this->field->type; ?> <?php echo $this->field->css_class; ?>" <?php $this->outputId($confirmation ? 'confirm_' : ''); $this->outputAttributes($this->field->attributes); if ($this->field->getValue($confirmation) !== null) {echo ' value="' . $this->field->getValue($confirmation) . '"';} if ($this->field->required) {echo ' required="required"';} ?> />
+        <input type="<?php echo $type; ?>" name="<?php echo ($confirmation ? 'confirm_' : '') . $this->field->name; ?>" class="field-control fld-<?php echo $this->field->type; ?> <?php echo $this->field->css_class; ?>" <?php $this->outputId($confirmation ? 'confirm_' : ''); $this->outputAttributes($this->field->attributes); if ($this->field->getValue($confirmation) != null) {echo ' value="' . $this->field->getValue($confirmation) . '"';} if ($this->field->required) {echo ' required="required"';} ?> />
         <?php
     }
 
