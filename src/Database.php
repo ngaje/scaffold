@@ -81,6 +81,35 @@ class Database extends \PDO
         return $this->entity_manager;
     }
 
+    public function restartDoctrine()
+    {
+        $enabled_filters = array();
+        if (isset($this->entity_manager)) {
+            $filters = $this->entity_manager->getFilters();
+            foreach ($filters->getEnabledFilters() as $filter_name=>$filter) {
+                $filter_class = get_class($filter);
+                $enabled_filters[$filter_name] = array($filter_class=>$filter->__toString());
+            }
+            @$this->entity_manager->close();
+            unset($this->entity_manager);
+        }
+        $em = $this->getDoctrine();
+        foreach ($enabled_filters as $filter_name=>$filter) {
+            foreach ($filter as $filter_class=>$filter_params_string) {
+                $em->getConfiguration()->addFilter($filter_name, $filter_class);
+                $this_filter = $em->getFilters()->enable($filter_name);
+                $filter_params = @unserialize($filter_params_string);
+                if ($filter_params) {
+                    foreach ($filter_params as $filter_param=>$filter_value) {
+                        if (isset($filter_value['value'])) {
+                            $this_filter->setParameter($filter_param, $filter_value['value']);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /*public function __destruct()
     {
         //De-register Doctrine autoloader so it doesn't interfere with JLoader
