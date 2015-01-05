@@ -12,7 +12,10 @@ class FieldRendererLabel extends FieldRenderer
         }
         ?>
         <div <?php $this->outputId(); ?> class="field-control fld-<?php echo $type; ?> <?php echo $this->field->css_class; ?>"><?php echo $this->field->value; ?></div>
-        <div class="clear"></div>
         <?php
+        if ($this->field->clear_after) { ?>
+            <div class="clear"></div>
+            <?php
+        }
     }
 }
