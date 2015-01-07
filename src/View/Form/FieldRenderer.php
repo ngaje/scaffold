@@ -97,6 +97,7 @@ class FieldRenderer
 
     protected function preRender()
     {
+        echo $this->field->pre_field;
         ?>
         <div class="field type_<?php echo $this->field->type; ?> <?php echo $this->field->css_class; ?>"<?php $this->outputId('fld'); if (!$this->field->visible) {echo ' style=display:none;';} $this->outputAttributes($this->field->container_attributes); ?>>
         <?php
@@ -165,6 +166,7 @@ class FieldRenderer
         ?>
         </div>
         <?php
+        echo $this->field->post_field;
     }
 
     protected function outputId($prefix = '', $suffix = '')

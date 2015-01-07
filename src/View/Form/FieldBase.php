@@ -42,6 +42,10 @@ class FieldBase
     public $pre_control = '';
     /** @var string Anything to output immediately after the control **/
     public $post_control = '';
+    /** @var string Anything to output immediately before the field (ie. before the caption) **/
+    public $pre_field = '';
+    /** @var string Anything to output immediately after the field (ie. after everything else has been output) **/
+    public $post_field = '';
     /** @var boolean Whether or not the field is in use (present) on the form **/
     public $published = true;
     /** @var boolean Whether or not the field is visible on the form (can still be present, just hidden) **/
