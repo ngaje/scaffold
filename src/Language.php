@@ -22,10 +22,13 @@ class Language
         $this->setLanguage($language, $profile_id);
     }
 
-    public function setLanguageFolder($language_folder)
+    public function setLanguageFolder($language_folder, $routing = null)
     {
         $this->language_folder = $language_folder;
-        $this->language_resources = array();
+        if ($routing === null) {
+            $routing = $this->language_resources['routing'];
+        }
+        $this->language_resources = array('routing'=>$routing);
     }
 
     public function getLanguageFolder()
@@ -43,7 +46,7 @@ class Language
             $this->language_resources[$property] = new LanguageResource($this, $property, $this->loadLanguageFile($property));
         }
         if (!$this->language_resources[$property]) {
-            throw new Exception('Language file missing (' . $property . ')');
+            throw new \Exception('Language file missing (' . $property . ')');
         }
         return $this->language_resources[$property];
     }
