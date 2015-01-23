@@ -30,15 +30,10 @@ class FieldSet
         $this->fields[] = $field;
     }
 
-    public function fieldExists($name)
+    public function fieldExists($name, $include_unpublished = true)
     {
-        foreach ($this->fields as $field)
-        {
-            if ($field->name == $name) {
-                return true;
-            }
-        }
-        return false;
+        $field = $this->getField($name, $include_unpublished);
+        return $field === null ? false : true;
     }
 
     public function &getField($field_name, $include_unpublished = false)

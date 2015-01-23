@@ -128,11 +128,8 @@ class FormBase
         foreach ($this->field_sets as $field_set)
         {
             if ($field_set->published) {
-                foreach ($field_set->fields as $field)
-                {
-                    if ($field->published && $field->name == $field_name) {
-                        return true;
-                    }
+                if ($field_set->fieldExists($field_name, false)) {
+                    return true;
                 }
             }
         }
@@ -142,11 +139,8 @@ class FormBase
             unset($field);
             foreach ($this->field_sets as $field_set)
             {
-                foreach ($field_set->fields as $field)
-                {
-                    if ($field->name == $field_name) {
-                        return true;
-                    }
+                if ($field_set->fieldExists($field_name, true)) {
+                    return true;
                 }
             }
         }

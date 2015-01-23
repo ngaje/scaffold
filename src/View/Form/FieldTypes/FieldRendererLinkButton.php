@@ -18,7 +18,8 @@ class FieldRendererLinkButton extends FieldRenderer
             $this->field->url = str_replace('[return]', $this->field->parent_field_set->parent_form->return_url, $this->field->url);
         }
         if ($this->field->url) {
-            $this->field->attributes['onclick']='window.location=\'' . $this->field->url . '\';return false;';
+            if (!isset($this->field->attributes['onclick'])) {$this->field->attributes['onclick']='';}
+            $this->field->attributes['onclick'].='window.location=\'' . $this->field->url . '\';return false;';
         }
         if ($this->field->image) {
             ?>

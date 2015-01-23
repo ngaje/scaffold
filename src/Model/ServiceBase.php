@@ -29,13 +29,13 @@ class ServiceBase implements \SplSubject
     }
 
     public function attach(\SplObserver $observer) {
-        $this->observers[] = $observer;
+        $this->observers[spl_object_hash($observer)] = $observer;
     }
 
     public function detach(\SplObserver $observer) {
 
-        $key = array_search($observer, $this->observers, true);
-        if($key){
+        $key = spl_object_hash($observer);
+        if (array_key_exists($key, $this->observers)) {
             unset($this->observers[$key]);
         }
     }
