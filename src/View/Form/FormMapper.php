@@ -33,7 +33,7 @@ class FormMapper
                 $this->form->record_id = substr($value, 0, 3) == 'new' ? $value : intval($value);
             }
             if ($this->form->fieldExists($key, true)) {
-                $field = $this->form->getField($key);
+                $field = $this->form->getField($key, true);
                 if (array_search($key, $raw_values) !== false) {
                     $field->setValueRaw($this->request->getRequestParam($key));
                 } else {
@@ -55,6 +55,7 @@ class FormMapper
                     case 'button':
                     case 'submit':
                     case 'reset':
+                    case 'container':
                         continue;
                     default:
                         if (!($field instanceof FieldLinkButton)) {
@@ -125,8 +126,8 @@ class FormMapper
                         $date_value = $date_field->getValue();
                         if ($date_value) {
                             $date_value = new \DateTime($date_value);
-                            $this->mapFieldValueToEntity($property, $date_value, $domain_object);
                         }
+                        $this->mapFieldValueToEntity($property, $date_value ? $date_value : null, $domain_object);
                     }
                 }
             }

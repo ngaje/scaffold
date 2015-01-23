@@ -130,13 +130,15 @@ abstract class ViewBase
         }
     }
 
-    public function renderFilterButtons()
+    public function renderFilterButtons($reset = true)
     {
         if (count(@$this->form->filter_fields->fields) > 0) {
             ?>
             <span class="filter-group">
                 <input type="submit" name="filter_go" id="filter_go" value="<?php echo $this->language->scaffold['go']; ?>" class="field-control fld-submit filter-button" />
-                <input type="submit" name="filter_reset" id="filter_reset" value="<?php echo $this->language->scaffold['reset']; ?>" class="field-control fld-submit filter-button" onclick="var elems=document.body.getElementsByTagName('*');for(var i=0;i<elems.length;i++){if(elems[i].id&&elems[i].id.indexOf&&elems[i].id.indexOf('filter_')===0&&elems[i].id!='filter_go'&&elems[i].id!='filter_reset'){elems[i].value='';if(elems[i].selectedIndex){elems[i].selectedIndex=-1;}}}" />
+                <?php if ($reset) { ?>
+                    <input type="submit" name="filter_reset" id="filter_reset" value="<?php echo $this->language->scaffold['reset']; ?>" class="field-control fld-submit filter-button" onclick="var elems=document.body.getElementsByTagName('*');for(var i=0;i<elems.length;i++){if(elems[i].id&&elems[i].id.indexOf&&elems[i].id.indexOf('filter_')===0&&elems[i].id!='filter_go'&&elems[i].id!='filter_reset'){elems[i].value='';if(elems[i].selectedIndex){elems[i].selectedIndex=-1;}}}" />
+                <?php } ?>
             </span>
             <?php
         }
