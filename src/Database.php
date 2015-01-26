@@ -2,6 +2,7 @@
 namespace Netshine\Scaffold;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Proxy\AbstractProxyFactory;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
@@ -66,7 +67,7 @@ class Database extends \PDO
             if ($this->dev_mode) {
                 $doctrine_config->setAutoGenerateProxyClasses(true);
             } else {
-                $doctrine_config->setAutoGenerateProxyClasses(false);
+                $doctrine_config->setAutoGenerateProxyClasses(AbstractProxyFactory::AUTOGENERATE_FILE_NOT_EXISTS);
             }
             $doctrine_config->setEntityNamespaces(array($this->entity_namespace));
 
