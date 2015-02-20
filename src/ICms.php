@@ -35,4 +35,8 @@ interface ICms
     */
     public function logout();
     public function sendEmail($from_address, $from_name, $recipient, $subject, $body, $cc = null, $bcc = null, $attachments = array(), $reply_to = null, $reply_to_name = null);
+    /**
+    * Get file path to CMS
+    */
+    public function getPath();
 }
