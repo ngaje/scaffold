@@ -113,11 +113,8 @@ class FormBase
     {
         foreach ($this->field_sets as $field_set)
         {
-            foreach ($field_set->fields as $field)
-            {
-                if ($field instanceof FieldTypes\FieldFile) {
-                    return true;
-                }
+            if ($field_set->containsFileUploads()) {
+                return true;
             }
         }
         return false;

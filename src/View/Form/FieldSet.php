@@ -77,4 +77,18 @@ class FieldSet
             $this->parent_form->renderer->renderFieldSet($this);
         }
     }
+
+    public function containsFileUploads()
+    {
+        foreach ($this->fields as $field)
+        {
+            if ($field instanceof FieldTypes\FieldFile) {
+                return true;
+            } else if ($field instanceof FieldTypes\FieldContainer) {
+                if ($field->field_set->containsFileUploads()) {
+                    return true;
+                }
+            }
+        }
+    }
 }
