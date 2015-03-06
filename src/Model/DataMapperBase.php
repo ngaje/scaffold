@@ -3,6 +3,7 @@ namespace Netshine\Scaffold\Model;
 
 use Netshine\Scaffold\Pagination;
 use Netshine\Scaffold\Database;
+use Netshine\Scaffold\Language;
 use Netshine\Scaffold\Model\DomainObjectBase;
 use Netshine\Scaffold\View\Form\FormBase;
 
@@ -17,13 +18,16 @@ class DataMapperBase
     public $sort_reverse = false;
     /** @var Pagination **/
     public $pagination;
+    /** @var Language **/
+    public $language;
     /** @var array **/
     public $filters = array();
 
-    public function __construct(Database $db, Pagination $pagination)
+    public function __construct(Database $db, Pagination $pagination, Language $language)
     {
         $this->db = $db;
         $this->pagination = $pagination;
+        $this->language = $language;
     }
 
     /**

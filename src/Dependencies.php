@@ -97,6 +97,7 @@ class Dependencies
 
         if (class_exists($mapper_class_name)) {
             $this->container['data_mapper'] = function ($c) use ($mapper_class_name, $mapper_args) {
+                array_unshift($mapper_args, $c['request']->language);
                 array_unshift($mapper_args, $c['pagination']);
                 array_unshift($mapper_args, $c['db']);
                 $reflector = new \ReflectionClass($mapper_class_name);
