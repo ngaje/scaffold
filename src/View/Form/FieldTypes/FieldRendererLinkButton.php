@@ -34,7 +34,7 @@ class FieldRendererLinkButton extends FieldRenderer
             </a>
             <?php
         } else {
-            parent::renderControl('submit');
+            parent::renderControl('button');
         }
     }
 }
