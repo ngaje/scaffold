@@ -156,6 +156,12 @@ abstract class ViewBase
                 }
             }
         }
+        if (isset($this->pagination)) {
+            $this_query = '&filter_pagination_page' . '=' . urlencode($this->pagination->page_no);
+            if (strpos($current_string, $this_query) === false) {
+                $query_string .= $this_query;
+            }
+        }
         return $query_string;
     }
 }

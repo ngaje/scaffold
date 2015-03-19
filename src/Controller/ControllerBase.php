@@ -43,6 +43,7 @@ abstract class ControllerBase implements IController
             $record_id = $this->request->getRequestParam('id');
             $this->form->record_id = $record_id == 'new' ? $record_id : intval($record_id);
         }
+        $_REQUEST['page'] = $request->getRequestParam('page', $request->getRequestParam('filter_pagination_page'));
         $this->filters = $this->request->getRequestFilters();
         if ($this->view) {
             $this->view->filters = $this->filters;
@@ -56,10 +57,12 @@ abstract class ControllerBase implements IController
     protected function preserveFilters()
     {
         if (isset($this->filters) && isset($this->form)) {
-            foreach ($this->filters as $key=>$value)
-            {
+            foreach ($this->filters as $key=>$value) {
                 $this->form->preserved_filters[filter_var($key, FILTER_SANITIZE_STRING)] = filter_var($value, FILTER_SANITIZE_STRING);
             }
+        }
+        if (isset($this->form)) {
+            $this->form->preserved_filters['filter_pagination_page'] = filter_var($this->request->getRequestParam('filter_pagination_page'), FILTER_SANITIZE_NUMBER_INT);
         }
     }
 
