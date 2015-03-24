@@ -44,6 +44,10 @@ abstract class ControllerBase implements IController
             $this->form->record_id = $record_id == 'new' ? $record_id : intval($record_id);
         }
         $_REQUEST['page'] = $request->getRequestParam('page', $request->getRequestParam('filter_pagination_page'));
+        $_REQUEST['records_per_page'] = $request->getRequestParam('records_per_page', $request->getRequestParam('filter_pagination_records'));
+        $_REQUEST['sort_by'] = $request->getRequestParam('sort_by', $request->getRequestParam('filter_sort_by'));
+        $_REQUEST['sort_reverse'] = $request->getRequestParam('sort_reverse', $request->getRequestParam('filter_sort_reverse'));
+
         $this->filters = $this->request->getRequestFilters();
         if ($this->view) {
             $this->view->filters = $this->filters;

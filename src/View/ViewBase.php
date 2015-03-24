@@ -157,11 +157,37 @@ abstract class ViewBase
             }
         }
         if (isset($this->pagination)) {
-            $this_query = '&filter_pagination_page' . '=' . urlencode($this->pagination->page_no);
+            $this_query = '&filter_pagination_page=' . urlencode($this->pagination->page_no) . '&filter_pagination_records=' . urlencode($this->pagination->records_per_page);
             if (strpos($current_string, $this_query) === false) {
                 $query_string .= $this_query;
             }
         }
+
+        $this_query = '';
+        $url = new Url();
+        $params = explode('&', $url->query);
+        if ($params) {
+            foreach ($params as $param) {
+                $kvp = explode('=', $param);
+                if ($kvp) {
+                    switch (trim($kvp[0])) {
+                        case 'sort_by':
+                        case 'sort_reverse':
+                            $this_query .= '&filter_' . $kvp[0] . '=' . $kvp[1];
+                            break;
+                        case 'filter_sort_by':
+                        case 'filter_sort_reverse':
+                            $this_query .= '&' . $kvp[0] . '=' . $kvp[1];
+                            break;
+                    }
+                    if (strlen($this_query) > 0 && strpos($current_string, $this_query) === false) {
+                        $query_string .= $this_query;
+                    }
+                    $this_query = '';
+                }
+            }
+        }
+
         return $query_string;
     }
 }
