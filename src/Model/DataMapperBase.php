@@ -30,6 +30,14 @@ class DataMapperBase
         $this->language = $language;
     }
 
+    public function __destruct()
+    {
+        if (isset($this->db)) {
+            @$this->db->close();
+            $this->db = null;
+        }
+    }
+
     /**
     * Maps data from the form to the entity where the field name matches the name of an entity's property.
     * Optionally specify a prefix if the form fields have one.

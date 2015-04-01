@@ -37,6 +37,19 @@ class Database extends \PDO
         parent::__construct($this->dsn, $this->username, $this->password, $driver_options);
     }
 
+    public function __destruct()
+    {
+        $this->close();
+    }
+
+    public function close()
+    {
+        if (isset($this->entity_manager)) {
+            $this->entity_manager->close();
+            unset($this->entity_manager);
+        }
+    }
+
     public function setDevMode($value)
     {
         $this->dev_mode = $value ? true : false;
