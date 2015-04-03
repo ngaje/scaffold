@@ -26,11 +26,12 @@ class Database extends \PDO
     /** @var string **/
     public $path_to_entities;
 
-    public function __construct($dsn = null, $username = null, $password = null, $driver_options = null, $database = null, $entity_namespace = null, $path_to_entities = null)
+    public function __construct($dsn = null, $host = null, $username = null, $password = null, $driver_options = null, $database = null, $entity_namespace = null, $path_to_entities = null)
     {
         $this->username = $username ? $username : $this->username;
         $this->password = $password ? $password : $this->password;
         $this->database = $database ? $database : '';
+        $this->host = $host ? $host : $this->host;
         $this->dsn = $dsn ? $dsn : 'mysql:host=' . $this->host . ';dbname=' . $this->database . ';port=' . $this->port . ';charset=UTF8';
         $this->entity_namespace = $entity_namespace;
         $this->path_to_entities = $path_to_entities;

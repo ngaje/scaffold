@@ -52,7 +52,7 @@ class Router
         $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false;
 
         $this->container['db'] = function ($c) use ($db_config, $dev_mode) {
-            $db = new Database($db_config->dsn, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
+            $db = new Database($db_config->dsn, $db_config->host, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
             $db->setDevMode($dev_mode);
             return $db;
         };
