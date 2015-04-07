@@ -10,7 +10,7 @@ class FieldLinkButton extends FieldBase
     /** @var string **/
     public $image;
 
-    public function validate()
+    public function validate(&$message = null)
     {
         if (strlen($this->url) > 0 && @$_REQUEST[$this->name]) { //Button clicked, but javascript disabled
             if (!headers_sent()) {

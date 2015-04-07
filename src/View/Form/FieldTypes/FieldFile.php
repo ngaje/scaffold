@@ -43,9 +43,9 @@ class FieldFile extends FieldBase
         return isset($this->upload_folder) ? $this->upload_folder : false;
     }
 
-    public function validate()
+    public function validate(&$message = null)
     {
-        if (parent::validate()) {
+        if (parent::validate($message)) {
             $valid = true;
             if (strlen(@$_FILES[$this->name]['name']) > 0)
             {

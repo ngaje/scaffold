@@ -54,9 +54,9 @@ class Database extends \PDO
     public function setDevMode($value)
     {
         $this->dev_mode = $value ? true : false;
-        if ($this->dev_mode) {
+        //if ($this->dev_mode) {
             $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
-        }
+        //}
     }
 
     public function setDoctrineCache($value)
