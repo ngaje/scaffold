@@ -17,7 +17,7 @@ class FieldContainer extends FieldLabel
         return $ret_val;
     }
 
-    public function validate(&$message)
+    public function validate(&$message = null)
     {
         $ret_val = true;
         foreach ($this->field_set->fields as $field) {

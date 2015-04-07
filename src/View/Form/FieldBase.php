@@ -119,7 +119,7 @@ class FieldBase
     /**
     * @return boolean True on validation success, False on failure
     */
-    public function validate()
+    public function validate(&$message = null)
     {
         //Truncate if too long
         if (array_key_exists('maxlength', $this->attributes) && intval($this->attributes['maxlength']) > 0) {
