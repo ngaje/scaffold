@@ -22,6 +22,8 @@ class DataMapperBase
     public $language;
     /** @var array **/
     public $filters = array();
+    /** @var boolean **/
+    public $paginate = true;
 
     public function __construct(Database $db, Pagination $pagination, Language $language)
     {

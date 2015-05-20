@@ -55,10 +55,11 @@ class ServiceBase implements \SplSubject
         }
     }
 
-    public function setPagination(Pagination &$pagination)
+    public function setPagination(Pagination &$pagination, $paginate = true)
     {
         if (isset($this->data_mapper)) {
             $this->data_mapper->pagination =& $pagination;
+            $this->data_mapper->paginate = $paginate;
         }
     }
 

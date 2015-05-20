@@ -246,4 +246,21 @@ class FileSystem
         }
         return false;
     }
+    
+    public function createDirectoryRecursive($path)
+    {
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+
+        $path_parts = explode(DIRECTORY_SEPARATOR, $path);
+        $current_path = '';
+        foreach ($path_parts as $path_part) {
+            $current_path .= $path_part . DIRECTORY_SEPARATOR;
+            if ($path_part && !is_dir($current_path)) {
+                @mkdir($current_path);
+            }
+        }
+
+        return is_dir($path);
+    }
 }
