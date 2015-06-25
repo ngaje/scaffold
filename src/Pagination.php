@@ -16,7 +16,7 @@ class Pagination
     /** @var Url **/
     public $url;
     /** @var int **/
-    protected $page_no;
+    protected $page_no = 1;
     /** @var int **/
     protected $records_per_page;
     /** @var int **/
@@ -40,7 +40,7 @@ class Pagination
     {
         $this->cms = $cms;
         $this->setBaseUrl($url);
-        $this->page_no = $page_no;
+        $this->page_no = $page_no == 0 ? 1 : $page_no;
         $this->records_per_page = $records_per_page;
         if ($this->records_per_page < 1) {
             $this->records_per_page = 1; //Avoid division by zero!
