@@ -190,4 +190,9 @@ class Request
         }
         return $default_value;
     }
+
+    public function getRawRequest()
+    {
+        return $_REQUEST;
+    }
 }
