@@ -144,6 +144,32 @@ class FormBase
         return false;
     }
 
+    /** @return FieldSet **/
+    public function &getFieldSet($field_set_id, $include_unpublished = false)
+    {
+        foreach ($this->field_sets as &$field_set)
+        {
+            if ($field_set->published) {
+                if ($field_set->id == $field_set_id) {
+                    return $field_set;
+                }
+            }
+        }
+        if ($include_unpublished) {
+            reset($this->field_sets);
+            unset($field_set);
+            foreach ($this->field_sets as &$field_set)
+            {
+                if ($field_set->id == $field_set_id) {
+                    return $field_set;
+                }
+            }
+        }
+
+        $result = null; //Have to return by reference
+        return $result;
+    }
+
     /** @return FieldBase **/
     public function &getField($field_name, $include_unpublished = false)
     {

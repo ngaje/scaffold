@@ -123,7 +123,7 @@ class FormRenderer
     {
         if ($field_set->published) {
             ?>
-            <<?php echo $field_set->fieldset_tag; if (strlen($field_set->id) > 0) {echo ' id="' . $field_set->id . '"';} ?><?php if (strlen($field_set->css_class) > 0) { ?> class="<?php echo $field_set->css_class; ?>"<?php } ?>>
+            <<?php echo $field_set->fieldset_tag; if (strlen($field_set->id) > 0) {echo ' id="' . $field_set->id . '"';} ?><?php if (strlen($field_set->css_class) > 0) { ?> class="<?php echo $field_set->css_class; ?>"<?php } $this->outputAttributes($field_set->attributes); ?>>
                 <?php if (strlen($field_set->legend) > 0) {
                     $legend_tag = $field_set->fieldset_tag == 'fieldset' ? 'legend' : 'div';
                     ?>
@@ -155,6 +155,16 @@ class FormRenderer
                     <?php
                     break 2;
                 }
+            }
+        }
+    }
+
+    protected function outputAttributes($attributes)
+    {
+        if (count($attributes) > 0) {
+            foreach ($attributes as $key=>$value)
+            {
+                echo ' ' . $key . '="' . $value . '"';
             }
         }
     }

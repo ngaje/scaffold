@@ -17,6 +17,8 @@ class FieldSet
     public $fields = array();
     /** @var boolean **/
     public $published = true;
+    /** @var array **/
+    public $attributes = array();
 
     public function __construct($legend = '', $id = '')
     {
