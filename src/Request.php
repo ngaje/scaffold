@@ -158,41 +158,53 @@ class Request
         return $filters;
     }
 
-    public function getRequestParam($param, $default_value = null)
+    public function getRequestParam($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
     {
-        return $this->getArrayParam($_REQUEST, $param, $default_value);
+        return $this->getArrayParam($_REQUEST, $param, $default_value, $filter);
     }
 
-    public function getPostParam($param, $default_value = null)
+    public function getPostParam($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
     {
-        return $this->getArrayParam($_POST, $param, $default_value);
+        return $this->getArrayParam($_POST, $param, $default_value, $filter);
     }
 
-    public function getCookie($param, $default_value = null)
+    public function getCookie($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
     {
-        return $this->getArrayParam($_COOKIE, $param, $default_value);
+        return $this->getArrayParam($_COOKIE, $param, $default_value, $filter);
     }
 
-    protected function getArrayParam($array, $param, $default_value = null)
+    protected function getArrayParam($array, $param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
     {
+        $ret_val = null;
         if(array_key_exists($param, $array)) {
-            return $array[$param];
+            $ret_val = $array[$param];
         }
         else {
             //Try case insensitive
             $uc_array = array_change_key_case($array, CASE_LOWER);
             if (array_key_exists(strtolower($param), $uc_array)) {
-                return $uc_array[strtolower($param)];
+                $ret_val = $uc_array[strtolower($param)];
             }
         }
-        if (!is_string($default_value) && is_callable($default_value)) {
-            return $default_value();
+
+        if ($ret_val === null) {
+            $ret_val = (!is_string($default_value) && is_callable($default_value)) ? $default_value() : $default_value;
         }
-        return $default_value;
+
+        if ($filter !== null) {
+            $ret_val = $ret_val === null ? $ret_val : filter_var($ret_val, $filter);
+        }
+
+        return $ret_val;
     }
 
     public function getRawRequest()
     {
         return $_REQUEST;
+    }
+
+    public function setRequestParam($param, $new_value = null)
+    {
+        $_REQUEST[$param] = $new_value;
     }
 }
