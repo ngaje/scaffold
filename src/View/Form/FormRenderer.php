@@ -69,15 +69,17 @@ class FormRenderer
         <input type="hidden" name="id" id="record_id" value="<?php echo $this->form->record_id; ?>" />
         <?php
         //Preserve any filters sent in the URL
-        foreach ($this->form->preserved_filters as $key=>$value)
-        {
-            if (!$this->form->filter_fields->fieldExists('filter_' . $key)) {
-                if (substr($key, 0, 7) == 'filter_') {
-                    $key = substr($key, 7);
+        if ($this->form->filter_fields) {
+            foreach ($this->form->preserved_filters as $key=>$value)
+            {
+                if (!$this->form->filter_fields->fieldExists('filter_' . $key)) {
+                    if (substr($key, 0, 7) == 'filter_') {
+                        $key = substr($key, 7);
+                    }
+                    ?>
+                    <input type="hidden" name="<?php echo filter_var('filter_' . $key, FILTER_SANITIZE_STRING); ?>" value="<?php echo filter_var($value, FILTER_SANITIZE_STRING); ?>" />
+                    <?php
                 }
-                ?>
-                <input type="hidden" name="<?php echo filter_var('filter_' . $key, FILTER_SANITIZE_STRING); ?>" value="<?php echo filter_var($value, FILTER_SANITIZE_STRING); ?>" />
-                <?php
             }
         }
     }
