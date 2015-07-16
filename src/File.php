@@ -151,7 +151,11 @@ class File
 
     public function delete()
     {
-        unlink($this->file_name);
+        clearstatcache();
+        if ($this->exists()) {
+            unlink($this->file_name);
+            clearstatcache();
+        }
     }
 
     public function getName()
