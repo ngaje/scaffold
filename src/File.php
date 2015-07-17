@@ -153,6 +153,7 @@ class File
     {
         clearstatcache();
         if ($this->exists()) {
+            $this->close();
             unlink($this->file_name);
             clearstatcache();
         }
