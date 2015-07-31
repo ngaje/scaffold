@@ -14,6 +14,7 @@ class File
 
     public function __construct($file_name, $content_type = 'application/octet-stream')
     {
+        ini_set('auto_detect_line_endings', true);
         $this->file_name = $file_name;
         $this->content_type = $content_type;
     }
@@ -83,6 +84,7 @@ class File
         if (isset($this->handle)) {
             @fclose($this->handle);
         }
+        unset($this->handle);
     }
 
     public function tempSetContents($contents)
