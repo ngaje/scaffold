@@ -111,11 +111,19 @@ class Language
         }
 
         $file_name = $this->getFileName($this->current_lang, $resource, $using_profile);
-        if ($file_name && file_exists($file_name))
-        {
+        if ($file_name && file_exists($file_name)) {
             $lang_ini = parse_ini_file($file_name);
             if (!$lang_ini) {
                 $lang_ini = array(); //language file is not valid - use default instead
+            }
+            foreach ($lang_ini as $entry_key=>$entry_value) {
+                if (substr($entry_key, 0, 7) == '@import') {
+                    $import_file = dirname($file_name) . '/' . $entry_value;
+                    if (file_exists($import_file)) {
+                        $imported = parse_ini_file($import_file);
+                        $lang_ini = $lang_ini + $imported;
+                    }
+                }
             }
         }
         $file_name = $this->getFileName($this->default_lang, $resource, $using_profile);
