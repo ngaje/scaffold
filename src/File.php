@@ -46,9 +46,11 @@ class File
         return strlen($this->file_name) > 0 && file_exists($this->file_name);
     }
 
-    public function getContents()
+    public function getContents($refresh = false)
     {
-        $this->contents = file_get_contents($this->file_name);
+        if (!$this->contents || $refresh) {
+            $this->contents = file_get_contents($this->file_name);
+        }
         return $this->contents;
     }
 

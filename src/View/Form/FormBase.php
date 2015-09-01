@@ -28,6 +28,8 @@ class FormBase
     public $form_resource;
     /** @var string **/
     public $form_method;
+    /** @var string **/
+    public $form_target = null;
     /** @var array **/
     public $field_sets = array();
     /** @var boolean **/

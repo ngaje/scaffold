@@ -55,8 +55,9 @@ class FormRenderer
         ?>
         <form   method="post"
                 action="<?php echo $this->site_url; ?>"
-                <?php if (strlen($this->form->id) > 0) { ?>id="<?php echo $this->form->id; ?>"<?php } ?>
-                <?php if ($this->form->containsFileUploads()) { ?>enctype="multipart/form-data"<?php } ?>>
+                <?php if ($this->form->form_target && strlen($this->form->form_target) > 0) { ?>target="<?php echo $this->form->form_target; ?>"<?php }
+                if (strlen($this->form->id) > 0) { ?> id="<?php echo $this->form->id; ?>"<?php }
+                if ($this->form->containsFileUploads()) { ?> enctype="multipart/form-data"<?php } ?>>
         <?php
     }
 
