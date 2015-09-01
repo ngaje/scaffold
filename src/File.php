@@ -1,6 +1,8 @@
 <?php
 namespace Netshine\Scaffold;
 
+use Netshine\Scaffold\Language;
+
 class File
 {
     /** @var string **/
@@ -164,5 +166,56 @@ class File
     public function getName()
     {
         return $this->file_name;
+    }
+
+    public function replaceLanguageAndPHPTokens(Language $language)
+    {
+        $this->replaceLanguageTokens($language);
+        $this->replacePHPTokens();
+    }
+
+    public function replaceLanguageTokens(Language $language)
+    {
+        $loop_breaker = 0;
+        $contents = $this->getContents();
+        $token_pos = strpos($contents, '[[');
+
+        while($token_pos !== false) {
+            $loop_breaker++;
+            if ($loop_breaker > 200) {
+                break;
+            }
+            $token_end = strpos($contents, ']]', $token_pos);
+            $language_resource = trim(substr($contents, $token_pos + 2, $token_end - ($token_pos + 2)));
+            list($resource, $entry) = explode(":", $language_resource);
+            $language_data = $language->{$resource}[$entry];
+            $contents = substr($contents, 0, $token_pos) . $language_data . substr($contents, $token_end + 2);
+            $token_pos = strpos($contents, '[[');
+        }
+        $this->tempSetContents($contents);
+    }
+
+    public function replacePHPTokens()
+    {
+        $loop_breaker = 0;
+        $contents = $this->getContents();
+        $token_pos = strpos($contents, '[[');
+
+        $token_pos = strpos($contents, '<' . '?php ');
+        while($token_pos !== false) {
+            $loop_breaker++;
+            if ($loop_breaker > 200) {
+                break;
+            }
+            $token_end = strpos($contents, '?' . '>', $token_pos + 1);
+            $php_code = trim(substr($contents, $token_pos + 6, $token_end - ($token_pos + 6)));
+            ob_start();
+            $result = eval($php_code);
+            $output = ob_get_clean();
+            $output = is_string($result) && strlen($result) > 0 && $output == '' ? $result : $output;
+            $contents = substr($contents, 0, $token_pos) . $output . substr($contents, $token_end + 2);
+            $token_pos = strpos($contents, '<' . '?php ');
+        }
+        $this->tempSetContents($contents);
     }
 }
