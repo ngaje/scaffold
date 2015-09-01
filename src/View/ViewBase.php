@@ -190,4 +190,11 @@ abstract class ViewBase
 
         return $query_string;
     }
+
+    public function clearOutputBuffers()
+    {
+        for ($i=0; $i<10; $i++) {
+            @ob_end_clean();
+        }
+    }
 }
