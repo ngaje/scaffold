@@ -3,5 +3,5 @@ namespace Netshine\Scaffold;
 
 interface ICronTask
 {
-    public function executeCronTask();
+    public function executeCronTask(Request $request = null);
 }
