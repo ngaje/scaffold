@@ -2,6 +2,7 @@
 namespace Netshine\Scaffold\View\Form\FieldTypes;
 
 use Netshine\Scaffold\View\Form\FieldBase;
+use Netshine\Scaffold\Request;
 
 class FieldLinkButton extends FieldBase
 {
@@ -10,9 +11,9 @@ class FieldLinkButton extends FieldBase
     /** @var string **/
     public $image;
 
-    public function validate(&$message = null)
+    public function validate(Request $request, &$message = null)
     {
-        if (strlen($this->url) > 0 && @$_REQUEST[$this->name]) { //Button clicked, but javascript disabled
+        if (strlen($this->url) > 0 && $request->getRequestParam($this->name)) { //Button clicked, but javascript disabled
             if (!headers_sent()) {
                 //Clear the buffers
                 $loopbreaker = 0;

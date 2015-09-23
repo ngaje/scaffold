@@ -35,7 +35,7 @@ class FormMapper
             if ($this->form->fieldExists($key, true)) {
                 $field = $this->form->getField($key, true);
                 if (array_search($key, $raw_values) !== false) {
-                    $field->setValueRaw($this->request->getRequestParam($key));
+                    $field->setValueRaw($this->request->getRequestParam($key, null, null));
                 } else {
                     $field->setValue($this->request->getRequestParam($key));
                 }

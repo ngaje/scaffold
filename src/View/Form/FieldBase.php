@@ -2,6 +2,7 @@
 namespace Netshine\Scaffold\View\Form;
 
 use Netshine\Scaffold\Language;
+use Netshine\Scaffold\Request;
 
 /**
 * @property mixed $value
@@ -119,7 +120,7 @@ class FieldBase
     /**
     * @return boolean True on validation success, False on failure
     */
-    public function validate(&$message = null)
+    public function validate(Request $request, &$message = null)
     {
         //Truncate if too long
         if (array_key_exists('maxlength', $this->attributes) && intval($this->attributes['maxlength']) > 0) {
@@ -152,7 +153,7 @@ class FieldBase
     * @param string $message Message to show on form (explaining why submission was halted)
     * @return boolean Whether or not processing can continue
     */
-    public function process(&$message)
+    public function process(Request $request, &$message)
     {
         return true;
     }
@@ -163,7 +164,7 @@ class FieldBase
     * @param string $message Message to show on form (explaining why submission was halted)
     * @return boolean Whether or not processing can continue
     */
-    public function formSubmitted(&$message)
+    public function formSubmitted(Request $request, &$message)
     {
         return true;
     }

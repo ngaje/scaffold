@@ -4,6 +4,7 @@ namespace Netshine\Scaffold\View\Form;
 use Netshine\Scaffold\ICms;
 use Netshine\Scaffold\Language;
 use Netshine\Scaffold;
+use Netshine\Scaffold\Request;
 
 class FormBase
 {
@@ -226,15 +227,15 @@ class FormBase
         return $field;
     }
 
-    public function submit($suppress_errors = false)
+    public function submit(Request $request, $suppress_errors = false)
     {
         $success = true;
-        if ($this->validate($suppress_errors)) {
+        if ($this->validate($request, $suppress_errors)) {
             foreach ($this->field_sets as $field_set)
             {
                 foreach ($field_set->fields as $field)
                 {
-                    if (!$field->formSubmitted($this->message)) {
+                    if (!$field->formSubmitted($request, $this->message)) {
                         if ($suppress_errors) {
                             $field->error = '';
                         }
@@ -249,7 +250,7 @@ class FormBase
     /**
     * @return array Return array of errors (or empty array if all ok)
     */
-    public function validate($suppress_errors = false)
+    public function validate(Request $request, $suppress_errors = false)
     {
         $success = true;
         foreach ($this->field_sets as $field_set)
@@ -261,10 +262,10 @@ class FormBase
                         $field->error = $this->language->form['err_fld_required'];
                         $success = false;
                     }
-                    $valid = $field->validate($suppress_errors);
-                    if ($valid) {
+                    $valid = $field->validate($request, $suppress_errors);
+                    if ($valid || $suppress_errors) {
                         $success = $valid ? $success : false;
-                        $field->process($this->message);
+                        $field->process($request, $this->message);
                     } else {
                         $success = false;
                         if ($suppress_errors) {

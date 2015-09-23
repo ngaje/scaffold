@@ -2,6 +2,7 @@
 namespace Netshine\Scaffold\View\Form\FieldTypes;
 
 use Netshine\Scaffold\View\Form\FieldBase;
+use Netshine\Scaffold\Request;
 
 class FieldFile extends FieldBase
 {
@@ -43,7 +44,7 @@ class FieldFile extends FieldBase
         return isset($this->upload_folder) ? $this->upload_folder : false;
     }
 
-    public function validate(&$message = null)
+    public function validate(Request $request, &$message = null)
     {
         if (parent::validate($message)) {
             $valid = true;
@@ -134,12 +135,12 @@ class FieldFile extends FieldBase
     * @param string $message
     * @return boolean
     */
-    public function process(&$message)
+    public function process(Request $request, &$message)
     {
         $this->clearDownOldTempFiles();
         clearstatcache();
 
-        if (isset($_POST['delete_' . $this->name])) {
+        if ($request->getRequestParam('delete_' . $this->name)) {
             //Delete file from upload or staging area
             $this->deleteFile();
             $message = $this->language->form['fld_file_deleted'];
@@ -220,7 +221,7 @@ class FieldFile extends FieldBase
     * @param string $message
     * @return boolean
     */
-    public function formSubmitted(&$message)
+    public function formSubmitted(Request $request, &$message)
     {
         $success = true;
         clearstatcache();
@@ -241,7 +242,7 @@ class FieldFile extends FieldBase
         }
 
         //If original file has been deleted, remove it from the file system
-        $orig_file_names = explode(",", @$_REQUEST['orig_' . $this->name]);
+        $orig_file_names = explode(",", $request->getRequestParam('orig_' . $this->name));
         foreach ($orig_file_names as $orig_file_name)
         {
             if (strlen($orig_file_name) > 0 && $this->value != $orig_file_name && strpos($orig_file_name, '..') === false) {
