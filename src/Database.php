@@ -51,17 +51,35 @@ class Database extends \PDO
         }
     }
 
-    public function setDevMode($value)
+    public function setDevMode($value, $set_cache = true, $cache = 'memcached')
     {
         $this->dev_mode = $value ? true : false;
-        //if ($this->dev_mode) {
-            $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
-        //}
+        if ($set_cache) {
+            $this->setDoctrineCache($value ? 'array' : $cache);
+        }
     }
 
     public function setDoctrineCache($value)
     {
-        $this->doctrine_cache = $value;
+        switch ($value) {
+            case 'memcached':
+                $this->doctrine_cache = new \Doctrine\Common\Cache\MemcachedCache();
+                break;
+            case 'apc':
+                $this->doctrine_cache = new \Doctrine\Common\Cache\ApcCache();
+                break;
+            case 'redis':
+                $this->doctrine_cache = new \Doctrine\Common\Cache\RedisCache();
+                break;
+            default:
+            case 'array':
+                $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
+                break;
+        }
+
+        if (isset($this->entity_manager)) {
+            $this->restartDoctrine();
+        }
     }
 
     public function getDoctrine()
@@ -124,14 +142,4 @@ class Database extends \PDO
             }
         }
     }
-
-    /*public function __destruct()
-    {
-        //De-register Doctrine autoloader so it doesn't interfere with JLoader
-        foreach (spl_autoload_functions() as $function) {
-            if (is_array($function) && ($function[0] === 'Doctrine')) {
-                spl_autoload_unregister($function);
-            }
-        }
-    }*/
 }

@@ -49,7 +49,7 @@ class Router
         $this->container['cms'] = $this->cms;
         $this->container['request'] = $this->request;
         $db_config = $this->db_config;
-        $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false;
+        $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false || strpos($this->request->url->full_url, 'http://dev') !== false;
 
         $this->container['db'] = function ($c) use ($db_config, $dev_mode) {
             $db = new Database($db_config->dsn, $db_config->host, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
