@@ -90,6 +90,14 @@ class FileSystem
         return $this->iterateFiles($directory, $allowed_directories, $allowed_files, $patterns, $directory_strategy, $file_strategy);
     }
 
+    public function deleteOldFiles($directory, \DateTime $older_than, $allowed_directories = array(), $allowed_files = array(), $patterns = array())
+    {
+        $oldest_timestamp = $older_than->getTimestamp();
+        $directory_strategy = function($directory_name) use ($oldest_timestamp) {if ($directory_name) {if (count(glob($directory_name . "/*")) > 0) {clearstatcache();usleep(100000);}$last_mod_time=@filemtime($directory_name . '/.');if($last_mod_time<$oldest_timestamp){rmdir($directory_name);}}};
+        $file_strategy = function($file_name) use($oldest_timestamp) {$last_mod_time=@filemtime($file_name);if ($file_name && $last_mod_time<$oldest_timestamp) {unlink($file_name);}};
+        return $this->iterateFiles($directory, $allowed_directories, $allowed_files, $patterns, $directory_strategy, $file_strategy);
+    }
+
     /**
     * Recursively check every directory and every file within the given directory and return all the files (as File objects), optionally restricting to a particular regex pattern
     * @param string $directory
@@ -246,7 +254,7 @@ class FileSystem
         }
         return false;
     }
-    
+
     public function createDirectoryRecursive($path)
     {
         $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
