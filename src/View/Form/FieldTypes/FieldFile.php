@@ -46,7 +46,7 @@ class FieldFile extends FieldBase
 
     public function validate(Request $request, &$message = null)
     {
-        if (parent::validate($message)) {
+        if (parent::validate($request, $message)) {
             $valid = true;
             if (strlen(@$_FILES[$this->name]['name']) > 0)
             {
