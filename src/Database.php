@@ -63,17 +63,35 @@ class Database extends \PDO
     {
         switch ($value) {
             case 'memcached':
-                $this->doctrine_cache = new \Doctrine\Common\Cache\MemcachedCache();
+                if (class_exists('\Memcached')) {
+                    $this->doctrine_cache = new \Doctrine\Common\Cache\MemcachedCache();
+                    $mc = new \Memcached('hrmagik_mc');
+                    $mc->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+                    if (!count($mc->getServerList())) {
+                        $mc->addServers(array(
+                            array('localhost',11211)
+                        ));
+                    }
+                    $this->doctrine_cache->setMemcached($mc);
+                } else {
+                    $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
+                }
                 break;
             case 'apc':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\ApcCache();
+
+
                 break;
             case 'redis':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\RedisCache();
+
+
                 break;
             default:
             case 'array':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
+
+
                 break;
         }
 
