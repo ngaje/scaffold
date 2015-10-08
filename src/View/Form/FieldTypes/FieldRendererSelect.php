@@ -13,7 +13,7 @@ class FieldRendererSelect extends FieldRenderer
             foreach ($this->field->options as $value=>$description)
             {
                 ?>
-                <option value="<?php echo $value; ?>"<?php if (substr(strtolower($value),0,9)==='separator'){echo ' disabled="disabled"';} else {if ($this->field->getValue() && $value == $this->field->getValue()){echo ' selected="selected"';}} ?>><?php echo substr(strtolower($value),0,9)==='separator' ? str_repeat($description, 10) : $description; ?></option>
+                <option value="<?php echo $value; ?>"<?php if (substr(strtolower($value),0,9)==='separator'){echo ' disabled="disabled"';} else {if ($this->field->getValue() != null && strval($value) === strval($this->field->getValue())){echo ' selected="selected"';}} ?>><?php echo substr(strtolower($value),0,9)==='separator' ? str_repeat($description, 10) : $description; ?></option>
                 <?php
             }
             ?>
