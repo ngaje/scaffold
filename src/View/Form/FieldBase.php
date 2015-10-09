@@ -120,7 +120,7 @@ class FieldBase
     /**
     * @return boolean True on validation success, False on failure
     */
-    public function validate(Request $request, &$message = null)
+    public function validate(Request $request, &$message = null, $suppress_errors = false)
     {
         //Truncate if too long
         if (array_key_exists('maxlength', $this->attributes) && intval($this->attributes['maxlength']) > 0) {
@@ -130,14 +130,18 @@ class FieldBase
         if ($this->published && ($this->parent_field_set == null || $this->parent_field_set->published)) {
             //Ensure mandatory values are present
             if ($this->required && !$this->value) {
-                $this->error = sprintf($this->language->form['err_fld_required'], $this->caption);
+                if (!$suppress_errors) {
+                    $this->error = sprintf($this->language->form['err_fld_required'], $this->caption);
+                }
                 return false;
             }
 
             //Request confirmation if applicable
             if ($this->request_confirmation) {
                 if ($this->value != $this->confirm_value) {
-                    $this->error = sprintf($this->language->form['err_fld_value_mismatch'], $this->caption);
+                    if (!$suppress_errors) {
+                        $this->error = sprintf($this->language->form['err_fld_value_mismatch'], $this->caption);
+                    }
                     return false;
                 }
             }
