@@ -26,9 +26,9 @@ class FieldPassword extends FieldBase
         }
     }
 
-    public function validate(Request $request, &$message = null)
+    public function validate(Request $request, &$message = null, $suppress_errors = false)
     {
-        if (parent::validate($request, $message)) {
+        if (parent::validate($request, $message, $suppress_errors)) {
             if (strlen($this->value) >= 8) {
                 if ($this->value == str_pad('', strlen($this->value), '*') || preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $this->value)) {
                     return true;

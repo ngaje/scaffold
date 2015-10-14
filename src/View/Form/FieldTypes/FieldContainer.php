@@ -18,11 +18,11 @@ class FieldContainer extends FieldLabel
         return $ret_val;
     }
 
-    public function validate(Request $request, &$message = null)
+    public function validate(Request $request, &$message = null, $suppress_errors = false)
     {
         $ret_val = true;
         foreach ($this->field_set->fields as $field) {
-            $ret_val = !$ret_val ? false : $field->validate($request, $message);
+            $ret_val = !$ret_val ? false : $field->validate($request, $message, $suppress_errors);
         }
         return $ret_val;
     }
