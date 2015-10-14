@@ -63,7 +63,7 @@ class Database extends \PDO
     {
         switch ($value) {
             case 'memcached':
-                if (class_exists('\Memcached')) {
+                /*if (class_exists('\Memcached')) {
                     $this->doctrine_cache = new \Doctrine\Common\Cache\MemcachedCache();
                     $mc = new \Memcached('hrmagik_mc');
                     $mc->setOption(Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
@@ -73,9 +73,9 @@ class Database extends \PDO
                         ));
                     }
                     $this->doctrine_cache->setMemcached($mc);
-                } else {
+                } else {*/
                     $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
-                }
+                //}
                 break;
             case 'apc':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\ApcCache();
