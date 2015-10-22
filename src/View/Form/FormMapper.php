@@ -27,7 +27,7 @@ class FormMapper
         if (!$this->form->initialised) {
             $this->form->initialise();
         }
-        foreach ($_REQUEST as $key=>$value)
+        foreach ($this->request->getRawRequest() as $key=>$value)
         {
             if ($key == 'id') {
                 $this->form->record_id = substr($value, 0, 3) == 'new' ? $value : intval($value);
