@@ -88,7 +88,7 @@ class Router
             }
         }
 
-        $dependencyConfig = new $class_name($this->container, $this->routing_config, $class_suffix, $this->request->resource, $this->request->method);
+        $dependencyConfig = new $class_name($this->request, $this->container, $this->routing_config, $class_suffix, $this->request->resource, $this->request->method);
         $this->container = $dependencyConfig->defineDependencies();
     }
 

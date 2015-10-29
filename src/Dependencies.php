@@ -1,10 +1,13 @@
 <?php
 namespace Netshine\Scaffold;
+
 use View\Form;
 use Pimple\Container;
 
 class Dependencies
 {
+    /** @var Request **/
+    protected $request;
     /** @var Container **/
     protected $container;
     /** @var RoutingConfig **/
@@ -16,8 +19,9 @@ class Dependencies
     /** @var string **/
     protected $method;
 
-    public function __construct(Container $container, RoutingConfig $routing_config, $class_suffix, $resource, $method = 'get')
+    public function __construct(Request $request, Container $container, RoutingConfig $routing_config, $class_suffix, $resource, $method = 'get')
     {
+        $this->request = $request;
         $this->container = $container;
         $this->routing_config = $routing_config;
         $this->class_suffix = $class_suffix;
