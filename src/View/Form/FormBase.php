@@ -262,24 +262,21 @@ class FormBase
                         $field->error = $this->language->form['err_fld_required'];
                         $success = false;
                     }
-                    $message = null;
-                    $valid = $field->validate($request, $message, $suppress_errors);
-                    if ($valid) {
+                    $valid = $field->validate($request, $suppress_errors);
+                    if ($valid || $suppress_errors) {
                         $success = $valid ? $success : false;
                         $field->process($request, $this->message);
                     } else {
-                        if ($suppress_errors) {
-                            $field->error = null;
-                        }
                         $success = false;
+                        if ($suppress_errors) {
+                            $field->error = '';
+                        }
                     }
                 }
             }
         }
         if (!$success) {
-            if (!$suppress_errors) {
-                $this->error_message = $this->getString('errors_present', 'form');
-            }
+            $this->error_message = $this->getString('errors_present', 'form');
         } else if (strlen($this->message) > 0) {
             return false; //Valid but submission should not continue as there is some information to display
         }

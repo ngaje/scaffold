@@ -16,14 +16,7 @@ class Router
     /** @var Container **/
     protected $container;
 
-    /**
-    * @param ICms $cms
-    * @param RoutingConfig $routing_config
-    * @param DatabaseConfig $db_config
-    * @param mixed $dev_mode Whether or not we are in development mode. Leave at default (null) to automatically detect, or pass in true or false
-    * @param string $cache One of: 'memcached', 'apc', 'redis', 'array'. Only implemented if dev_mode is false (when in dev mode, array cache is always used)
-    */
-    public function __construct(ICms $cms, RoutingConfig $routing_config, DatabaseConfig $db_config = null, $dev_mode = null, $cache = 'memcached')
+    public function __construct(ICms $cms, RoutingConfig $routing_config, DatabaseConfig $db_config = null)
     {
         $this->cms = $cms;
         $this->routing_config = $routing_config;
@@ -34,7 +27,7 @@ class Router
             $this->request->resource = $routing_config->default_resource;
         }
         $this->container = new Container();
-        $this->defineDependencies($dev_mode, $cache);
+        $this->defineDependencies();
     }
 
     public function loadRequest(Language $language)
@@ -51,20 +44,12 @@ class Router
         return $language;
     }
 
-    /**
-    * @param mixed $dev_mode Whether or not we are in development mode. Leave at default (null) to automatically detect, or pass in true or false
-    * @param string $cache One of: 'memcached', 'apc', 'redis', 'array'. Only implemented if dev_mode is false (when in dev mode, array cache is always used)
-    */
-    protected function defineDependencies($dev_mode = null, $cache = 'memcached')
+    protected function defineDependencies()
     {
         $this->container['cms'] = $this->cms;
         $this->container['request'] = $this->request;
         $db_config = $this->db_config;
-        if ($dev_mode === null) {
-            $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false || strpos($this->request->url->full_url, 'http://dev') !== false;
-        } else {
-            $dev_mode = $dev_mode ? true : false;
-        }
+        $dev_mode = strpos($this->request->url->full_url, 'http://localhost') !== false || strpos($this->request->url->full_url, 'http://dev') !== false;
 
         $this->container['db'] = function ($c) use ($db_config, $dev_mode) {
             $db = new Database($db_config->dsn, $db_config->host, $db_config->username, $db_config->password, null, $db_config->database, $db_config->entity_namespace, $db_config->entity_path);
@@ -88,7 +73,7 @@ class Router
             }
         }
 
-        $dependencyConfig = new $class_name($this->request, $this->container, $this->routing_config, $class_suffix, $this->request->resource, $this->request->method);
+        $dependencyConfig = new $class_name($this->container, $this->routing_config, $class_suffix, $this->request->resource, $this->request->method);
         $this->container = $dependencyConfig->defineDependencies();
     }
 

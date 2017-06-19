@@ -5,11 +5,8 @@ use Netshine\Scaffold\View\Form\FieldBase;
 
 class FieldYesOrNo extends FieldBase
 {
-    /** @var boolean **/
-    public $is_nullable = false;
-
-    public function setValue($value = null)
+    public function setValue($value = '')
     {
-        $this->value = intval($value) ? true : ($this->is_nullable && $value === null ? null : false);
+        $this->value = intval($value) ? true : false;
     }
 }

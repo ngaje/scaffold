@@ -145,7 +145,6 @@ abstract class ControllerBase implements IController
 
     protected function ajaxSuccess($payload = '')
     {
-        $this->clearOutputBuffers();
         echo 'OK';
         if (strlen($payload) > 0) {
             echo ':' . $payload;
@@ -155,7 +154,6 @@ abstract class ControllerBase implements IController
 
     protected function ajaxFailure($message = '')
     {
-        $this->clearOutputBuffers();
         if (strlen($message) == 0) {
             $message = $this->request->language->error['err_ajax_failure'];
         }

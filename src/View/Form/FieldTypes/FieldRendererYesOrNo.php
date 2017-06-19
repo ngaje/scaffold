@@ -19,7 +19,7 @@ class FieldRendererYesOrNo extends FieldRenderer
     public function renderControl($type = null, $confirmation = false)
     {
         ?>
-        <input type="radio" name="<?php echo $this->field->name; ?>" <?php $this->outputId(null, '0'); ?> value="0"<?php if ($this->field->getValue($confirmation) == false && ($this->field->getValue($confirmation) !== null || $this->field->is_nullable == false)) {echo ' checked="checked"';} ?> class="field-control-radio <?php echo $this->field->css_class; ?>"<?php $this->outputAttributes($this->field->attributes); ?>><label class="radio-label" for="<?php echo $this->field->name; ?>_0"><?php echo $this->language->scaffold['negative']; ?></label>
+        <input type="radio" name="<?php echo $this->field->name; ?>" <?php $this->outputId(null, '0'); ?> value="0"<?php if ($this->field->getValue($confirmation) == false) {echo ' checked="checked"';} ?> class="field-control-radio <?php echo $this->field->css_class; ?>"<?php $this->outputAttributes($this->field->attributes); ?>><label class="radio-label" for="<?php echo $this->field->name; ?>_0"><?php echo $this->language->scaffold['negative']; ?></label>
         <input type="radio" name="<?php echo $this->field->name; ?>" <?php $this->outputId(null, '1'); ?> value="1"<?php if ($this->field->getValue($confirmation)) {echo ' checked="checked"';} ?> class="field-control-radio <?php echo $this->field->css_class; ?>"<?php $this->outputAttributes($this->field->attributes); ?>><label class="radio-label" for="<?php echo $this->field->name; ?>_1"><?php echo $this->language->scaffold['affirmative']; ?></label>
         <?php
     }
