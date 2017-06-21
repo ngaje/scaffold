@@ -62,7 +62,7 @@ class Database extends \PDO
     public function setDoctrineCache($value)
     {
         switch ($value) {
-            case 'memcached':
+            /*case 'memcached':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\MemcachedCache();
                 break;
             case 'apc':
@@ -70,7 +70,7 @@ class Database extends \PDO
                 break;
             case 'redis':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\RedisCache();
-                break;
+                break;*/
             default:
             case 'array':
                 $this->doctrine_cache = new \Doctrine\Common\Cache\ArrayCache();
