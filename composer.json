@@ -16,9 +16,9 @@
     "require": {
         "php":">5.4.0",
         "willdurand/negotiation": "@stable",
-        "doctrine/common": "2.5.1",
-        "doctrine/dbal": "2.5.1",
-        "doctrine/orm": "2.5.1",
+        "doctrine/common": "^2.5",
+        "doctrine/dbal": "^2.5",
+        "doctrine/orm": "^2.5",
         "doctrine/migrations": "1.0.0",
         "pimple/pimple": "~3.0"
     },
