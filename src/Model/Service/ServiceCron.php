@@ -3,6 +3,7 @@ namespace Netshine\Scaffold\Model\Service;
 
 use Netshine\Scaffold\ICronTask;
 use Netshine\Scaffold\Model\ServiceBase;
+use Netshine\Scaffold\Request;
 
 class ServiceCron extends ServiceBase
 {
@@ -13,12 +14,12 @@ class ServiceCron extends ServiceBase
         $this->cron_tasks[] = $cron_task;
     }
 
-    public function runCronJobs($task = 'ALL')
+    public function runCronJobs($force_rerun = false, $task = 'ALL', Request $request = null)
     {
         $task = $task == null ? 'ALL' : $task;
         foreach ($this->cron_tasks as $cron_task) {
             if ($task == 'ALL' || strpos(strtolower(get_class($cron_task)), strtolower($task)) !== false) {
-                $cron_task->executeCronTask();
+                $cron_task->executeCronTask($request);
             }
         }
     }
