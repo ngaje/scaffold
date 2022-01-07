@@ -1,5 +1,5 @@
 {
-    "name":"itsgone/scaffold",
+    "name":"ngaje/scaffold",
     "type":"library",
     "description":"micro framework for CMS integration",
     "authors": [
@@ -13,8 +13,8 @@
     ],
     "autoload": {
          "psr-4": {
-             "Itsgone\\Scaffold\\":"src",
-             "Itsgone\\Scaffold\\Tools\\":"tools"
+             "Ngaje\\Scaffold\\":"src",
+             "Ngaje\\Scaffold\\Tools\\":"tools"
          }
     },
     "require": {
