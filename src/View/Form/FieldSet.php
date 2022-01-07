@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold\View\Form;
+namespace Ngaje\Scaffold\View\Form;
 
 class FieldSet
 {
