@@ -5,6 +5,10 @@
     "authors": [
         {
             "name":"Russell Walker"
+        },
+        {
+            "name": "Chris Haythornthwaite",
+            "homepage": "https://www.itsgone.com/"
         }
     ],
     "autoload": {
@@ -14,12 +18,12 @@
          }
     },
     "require": {
-        "php":">5.4.0",
-        "willdurand/negotiation": "@stable",
-        "doctrine/common": "^2.5",
-        "doctrine/dbal": "^2.5",
-        "doctrine/orm": "^2.5",
-        "doctrine/migrations": "1.0.0",
+        "php":"^7.4",
+        "willdurand/negotiation": "^3.0",
+        "doctrine/common": "^2.10",
+        "doctrine/dbal": "^3.0",
+        "doctrine/orm": "^2.9",
+        "doctrine/migrations": "3.1",
         "pimple/pimple": "~3.0"
     },
     "minimum-stability": "stable"
