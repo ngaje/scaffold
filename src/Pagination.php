@@ -1,9 +1,9 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 
-use Netshine\Scaffold\ICms;
-use Netshine\Scaffold\Url;
-use Netshine\Scaffold\Language;
+use Ngaje\Scaffold\ICms;
+use Ngaje\Scaffold\Url;
+use Ngaje\Scaffold\Language;
 
 /**
 * @property int $page_no
