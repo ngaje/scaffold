@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold\Model;
+namespace Ngaje\Scaffold\Model;
 
 class DomainObjectBase implements \JsonSerializable
 {
