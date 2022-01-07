@@ -1,15 +1,15 @@
 <?php
-namespace Netshine\Scaffold\View;
+namespace Ngaje\Scaffold\View;
 
-use Netshine\Scaffold;
-use Netshine\Scaffold\Url;
-use Netshine\Scaffold\ICms;
-use Netshine\Scaffold\Language;
-use Netshine\Scaffold\View\Form\FormBase;
-use Netshine\Scaffold\View\Form\FormRenderer;
-use Netshine\Scaffold\View\Form\FieldBase;
-use Netshine\Scaffold\View\Form\FieldFactory;
-use Netshine\Scaffold\View\Form\FieldSet;
+use Ngaje\Scaffold;
+use Ngaje\Scaffold\Url;
+use Ngaje\Scaffold\ICms;
+use Ngaje\Scaffold\Language;
+use Ngaje\Scaffold\View\Form\FormBase;
+use Ngaje\Scaffold\View\Form\FormRenderer;
+use Ngaje\Scaffold\View\Form\FieldBase;
+use Ngaje\Scaffold\View\Form\FieldFactory;
+use Ngaje\Scaffold\View\Form\FieldSet;
 
 abstract class ViewBase
 {
