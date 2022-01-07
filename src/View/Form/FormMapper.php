@@ -1,10 +1,10 @@
 <?php
-namespace Netshine\Scaffold\View\Form;
+namespace Ngaje\Scaffold\View\Form;
 
-use Netshine\Scaffold\Request;
-use Netshine\Scaffold\Model\DomainObjectBase;
-use Netshine\Scaffold\View\Form\FieldTypes\FieldLabel;
-use Netshine\Scaffold\View\Form\FieldTypes\FieldLinkButton;
+use Ngaje\Scaffold\Request;
+use Ngaje\Scaffold\Model\DomainObjectBase;
+use Ngaje\Scaffold\View\Form\FieldTypes\FieldLabel;
+use Ngaje\Scaffold\View\Form\FieldTypes\FieldLinkButton;
 
 class FormMapper
 {
