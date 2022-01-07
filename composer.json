@@ -1,5 +1,5 @@
 {
-    "name":"netshine/scaffold",
+    "name":"itsgone/scaffold",
     "type":"library",
     "description":"micro framework for CMS integration",
     "authors": [
@@ -13,8 +13,8 @@
     ],
     "autoload": {
          "psr-4": {
-             "Netshine\\Scaffold\\":"src",
-             "Netshine\\Scaffold\\Tools\\":"tools"
+             "Itsgone\\Scaffold\\":"src",
+             "Itsgone\\Scaffold\\Tools\\":"tools"
          }
     },
     "require": {
