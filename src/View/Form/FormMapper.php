@@ -56,7 +56,7 @@ class FormMapper
                     case 'submit':
                     case 'reset':
                     case 'container':
-                        continue;
+                        break;//Update PHP 7.3
                     default:
                         if (!($field instanceof FieldLinkButton)) {
                             if (!array_key_exists($field->name, $_REQUEST) && !array_key_exists($field->name, $_FILES)) {
