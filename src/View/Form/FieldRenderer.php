@@ -1,8 +1,8 @@
 <?php
-namespace Netshine\Scaffold\View\Form;
+namespace Ngaje\Scaffold\View\Form;
 
-use Netshine\Scaffold\Language;
-use Netshine\Scaffold\ICms;
+use Ngaje\Scaffold\Language;
+use Ngaje\Scaffold\ICms;
 
 class FieldRenderer
 {
