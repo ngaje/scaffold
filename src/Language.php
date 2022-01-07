@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 
 /**
 * @property-write int $profile_id
