@@ -51,7 +51,7 @@ class Dependencies
 
             $class_name = $this->guessQualifiedClassName('view', 'FormRenderer');
             if (!class_exists($class_name)) {
-                $class_name = '\\Netshine\\Scaffold\\View\\Form\\FormRenderer';
+                $class_name = '\\Ngaje\\Scaffold\\View\\Form\\FormRenderer';
             }
             $this->container['form_renderer'] = function ($c) use ($class_name) {
                 return new $class_name($c['form'], $this->routing_config->site_entry_url);
@@ -59,7 +59,7 @@ class Dependencies
 
             $class_name = $this->guessQualifiedClassName('view', 'FormMapper');
             if (!class_exists($class_name)) {
-                $class_name = '\\Netshine\\Scaffold\\View\\Form\\FormMapper';
+                $class_name = '\\Ngaje\\Scaffold\\View\\Form\\FormMapper';
             }
             $this->container['form_mapper'] = function ($c) use ($class_name) {
                 return new $class_name($c['request'], $c['form']);
@@ -67,7 +67,7 @@ class Dependencies
 
             $class_name = $this->guessQualifiedClassName('view', 'FieldFactory');
             if (!class_exists($class_name)) {
-                $class_name = '\\Netshine\\Scaffold\\View\\Form\\FieldFactory';
+                $class_name = '\\Ngaje\\Scaffold\\View\\Form\\FieldFactory';
             }
             $this->container['field_factory'] = function ($c) use ($class_name, $field_namespace) {
                 return new $class_name($c['request']->language, $field_namespace, $c['cms']);
@@ -92,7 +92,7 @@ class Dependencies
 
         if (class_exists($service_class_name) && !class_exists($mapper_class_name)) {
             //Give the service a vanilla mapper
-            $mapper_class_name = '\Netshine\\Scaffold\\Model\\DataMapperBase';
+            $mapper_class_name = '\Ngaje\\Scaffold\\Model\\DataMapperBase';
         }
 
         if (class_exists($mapper_class_name)) {
@@ -142,9 +142,9 @@ class Dependencies
             if (!class_exists($class_name)) {
                 $class_name = $this->routing_config->{'namespace_' . $namespace_type} . 'Form\\' . $class_prefix;
                 if (!class_exists($class_name)) {
-                    $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $class_prefix . $this->class_suffix;
+                    $class_name = '\\Ngaje\\Scaffold\\' . ucwords($namespace_type) . '\\' . $class_prefix . $this->class_suffix;
                     if (!class_exists($class_name)) {
-                        $class_name = '\\Netshine\\Scaffold\\' . ucwords($namespace_type) . '\\' . $this->class_suffix . '\\' . $class_prefix . $this->class_suffix;
+                        $class_name = '\\Ngaje\\Scaffold\\' . ucwords($namespace_type) . '\\' . $this->class_suffix . '\\' . $class_prefix . $this->class_suffix;
                     }
                 }
             }
