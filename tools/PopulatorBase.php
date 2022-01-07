@@ -1,5 +1,5 @@
 <?php
-use Netshine\Scaffold\Database;
+use Ngaje\Scaffold\Database;
 
 abstract class PopulatorBase
 {
