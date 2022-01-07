@@ -1,14 +1,14 @@
 <?php
-namespace Netshine\Scaffold\Controller;
+namespace Ngaje\Scaffold\Controller;
 
-use Netshine\Scaffold\ICms;
-use Netshine\Scaffold\Request;
-use Netshine\Scaffold\Url;
-use Netshine\Scaffold\View\ViewNotFoundHtml;
-use Netshine\Scaffold\View\ViewBase;
-use Netshine\Scaffold\View\Form\FormBase;
-use Netshine\Scaffold\Model\ServiceBase;
-use Netshine\Scaffold\View\Form\FormMapper;
+use Ngaje\Scaffold\ICms;
+use Ngaje\Scaffold\Request;
+use Ngaje\Scaffold\Url;
+use Ngaje\Scaffold\View\ViewNotFoundHtml;
+use Ngaje\Scaffold\View\ViewBase;
+use Ngaje\Scaffold\View\Form\FormBase;
+use Ngaje\Scaffold\Model\ServiceBase;
+use Ngaje\Scaffold\View\Form\FormMapper;
 
 abstract class ControllerBase implements IController
 {
@@ -29,7 +29,7 @@ abstract class ControllerBase implements IController
     /** @var array **/
     protected $filters = array();
 
-    use \Netshine\Scaffold\TResource;
+    use \Ngaje\Scaffold\TResource;
 
     public function __construct(ICms $cms, Request $request, ViewBase $view = null, FormBase $form = null, ServiceBase $service = null)
     {
