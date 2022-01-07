@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 use View\Form;
 use Pimple\Container;
 
