@@ -1,10 +1,10 @@
 <?php
-namespace Netshine\Scaffold\Model;
+namespace Ngaje\Scaffold\Model;
 
-use Netshine\Scaffold\ICms;
-use Netshine\Scaffold\Language;
-use Netshine\Scaffold\EventData;
-use Netshine\Scaffold\Pagination;
+use Ngaje\Scaffold\ICms;
+use Ngaje\Scaffold\Language;
+use Ngaje\Scaffold\EventData;
+use Ngaje\Scaffold\Pagination;
 use Hra\Hra\Model\Entity\System\Person;
 
 class ServiceBase implements \SplSubject
@@ -19,7 +19,7 @@ class ServiceBase implements \SplSubject
     /** @var array **/
     protected $observers = array();
 
-    use \Netshine\Scaffold\TResource;
+    use \Ngaje\Scaffold\TResource;
 
     public function __construct(ICms $cms, DataMapperBase $data_mapper = null, Language $language)
     {
