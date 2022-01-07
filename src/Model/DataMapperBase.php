@@ -24,6 +24,8 @@ class DataMapperBase
     public $filters = array();
     /** @var boolean **/
     public $paginate = true;
+  	/** @var boolean **/
+	protected $fetch_join_collection = false;//Doctrine Paginator setting. True causes strict issues with Doctrine Paginator in MySQL 5.7 +
 
     public function __construct(Database $db, Pagination $pagination, Language $language)
     {
