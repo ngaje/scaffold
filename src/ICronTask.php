@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 
 interface ICronTask
 {
