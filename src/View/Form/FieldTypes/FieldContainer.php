@@ -1,8 +1,8 @@
 <?php
-namespace Netshine\Scaffold\View\Form\FieldTypes;
+namespace Ngaje\Scaffold\View\Form\FieldTypes;
 
-use Netshine\Scaffold\View\Form\FieldSet;
-use Netshine\Scaffold\Request;
+use Ngaje\Scaffold\View\Form\FieldSet;
+use Ngaje\Scaffold\Request;
 
 class FieldContainer extends FieldLabel
 {
