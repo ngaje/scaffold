@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold\Controller;
+namespace Ngaje\Scaffold\Controller;
 
 interface IController
 {
