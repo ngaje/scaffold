@@ -1,9 +1,9 @@
 <?php
-namespace Netshine\Scaffold\Model\Service;
+namespace Ngaje\Scaffold\Model\Service;
 
-use Netshine\Scaffold\ICronTask;
-use Netshine\Scaffold\Model\ServiceBase;
-use Netshine\Scaffold\Request;
+use Ngaje\Scaffold\ICronTask;
+use Ngaje\Scaffold\Model\ServiceBase;
+use Ngaje\Scaffold\Request;
 
 class ServiceCron extends ServiceBase
 {
