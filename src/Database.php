@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Proxy\AbstractProxyFactory;
