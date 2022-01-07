@@ -1,7 +1,7 @@
 <?php
-namespace Netshine\Scaffold\View\Form;
+namespace Ngaje\Scaffold\View\Form;
 
-use Netshine\Scaffold\Url;
+use Ngaje\Scaffold\Url;
 
 class FormRenderer
 {
