@@ -24,6 +24,7 @@
         "doctrine/dbal": "^2.10",
         "doctrine/orm": "^2.10",
         "doctrine/migrations": "3.0",
+        "doctrine/cache":"^1.12",
         "pimple/pimple": "~3.0"
     },
     "minimum-stability": "stable"
