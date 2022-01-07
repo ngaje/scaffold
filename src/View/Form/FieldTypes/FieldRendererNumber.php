@@ -1,8 +1,8 @@
 <?php
-namespace Netshine\Scaffold\View\Form\FieldTypes;
+namespace Ngaje\Scaffold\View\Form\FieldTypes;
 
-use Netshine\Scaffold\View\Form\FieldRenderer;
-use Netshine\Scaffold\View\Form\FieldTypes\FieldNumber;
+use Ngaje\Scaffold\View\Form\FieldRenderer;
+use Ngaje\Scaffold\View\Form\FieldTypes\FieldNumber;
 
 class FieldRendererNumber extends FieldRenderer
 {
