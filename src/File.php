@@ -1,7 +1,7 @@
 <?php
-namespace Netshine\Scaffold;
+namespace Ngaje\Scaffold;
 
-use Netshine\Scaffold\Language;
+use Ngaje\Scaffold\Language;
 
 class File
 {
