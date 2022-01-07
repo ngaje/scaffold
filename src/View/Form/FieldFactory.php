@@ -1,10 +1,10 @@
 <?php
-namespace Netshine\Scaffold\View\Form;
+namespace Ngaje\Scaffold\View\Form;
 
-use Netshine\Scaffold\Language;
-use Netshine\Scaffold\ICms;
-use Netshine\Scaffold\Url;
-use Netshine\Scaffold\View\Form\FieldTypes\FieldText;
+use Ngaje\Scaffold\Language;
+use Ngaje\Scaffold\ICms;
+use Ngaje\Scaffold\Url;
+use Ngaje\Scaffold\View\Form\FieldTypes\FieldText;
 
 class FieldFactory
 {
