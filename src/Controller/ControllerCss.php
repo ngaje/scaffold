@@ -1,7 +1,7 @@
 <?php
-namespace Netshine\Scaffold\Controller;
+namespace Ngaje\Scaffold\Controller;
 
-use Netshine\Scaffold\File;
+use Ngaje\Scaffold\File;
 
 class ControllerCss extends ControllerBase
 {
