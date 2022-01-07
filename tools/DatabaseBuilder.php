@@ -1,7 +1,7 @@
 <?php
-namespace Netshine\Scaffold\Tools;
+namespace Ngaje\Scaffold\Tools;
 
-use Netshine\Scaffold\Database;
+use Ngaje\Scaffold\Database;
 use Doctrine\ORM;
 use Doctrine\ORM\Tools\SchemaValidator;
 
