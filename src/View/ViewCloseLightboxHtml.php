@@ -1,5 +1,5 @@
 <?php
-namespace Netshine\Scaffold\View;
+namespace Ngaje\Scaffold\View;
 
 class ViewCloseLightboxHtml extends ViewBase
 {
