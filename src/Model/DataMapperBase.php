@@ -1,11 +1,11 @@
 <?php
-namespace Netshine\Scaffold\Model;
+namespace Ngaje\Scaffold\Model;
 
-use Netshine\Scaffold\Pagination;
-use Netshine\Scaffold\Database;
-use Netshine\Scaffold\Language;
-use Netshine\Scaffold\Model\DomainObjectBase;
-use Netshine\Scaffold\View\Form\FormBase;
+use Ngaje\Scaffold\Pagination;
+use Ngaje\Scaffold\Database;
+use Ngaje\Scaffold\Language;
+use Ngaje\Scaffold\Model\DomainObjectBase;
+use Ngaje\Scaffold\View\Form\FormBase;
 
 class DataMapperBase
 {
