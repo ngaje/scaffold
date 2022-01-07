@@ -1,7 +1,7 @@
 <?php
-namespace Netshine\Scaffold\View\Form\FieldTypes;
+namespace Ngaje\Scaffold\View\Form\FieldTypes;
 
-use Netshine\Scaffold\View\Form\FieldBase;
+use Ngaje\Scaffold\View\Form\FieldBase;
 
 class FieldYesOrNo extends FieldBase
 {
