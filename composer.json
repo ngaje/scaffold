@@ -19,7 +19,7 @@
     },
     "require": {
         "php":"^7.4||^8.0",
-        "willdurand/negotiation": "^2.0",
+        "willdurand/negotiation": "1.4.0",
         "doctrine/common": "^3.0",
         "doctrine/dbal": "^2.10",
         "doctrine/orm": "^2.10",
