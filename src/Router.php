@@ -68,7 +68,7 @@ class Router
             if (!class_exists($class_name)) {
                 $class_name = $this->routing_config->namespace_dependencies . 'Dependencies';
                 if (!class_exists($class_name)) {
-                    $class_name = 'Netshine\Scaffold\Dependencies';
+                    $class_name = 'Ngaje\Scaffold\Dependencies';
                 }
             }
         }
