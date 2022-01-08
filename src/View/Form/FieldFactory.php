@@ -60,11 +60,11 @@ class FieldFactory
         $field_type = str_replace(' ', '', ucwords(str_replace('_', ' ', $type)));
         $class_name = $this->field_types_namespace . 'Field' . $field_type;
         if (!class_exists($class_name)) {
-            $class_name = 'Netshine\Scaffold\View\Form\FieldTypes\Field' . $field_type;
+            $class_name = 'Ngaje\Scaffold\View\Form\FieldTypes\Field' . $field_type;
         }
         if (class_exists($class_name)) {
             $reflection_class = new \ReflectionClass($class_name);
-            if ($reflection_class->isSubclassOf('Netshine\Scaffold\View\Form\FieldBase')) {
+            if ($reflection_class->isSubclassOf('Ngaje\Scaffold\View\Form\FieldBase')) {
                 $field = new $class_name($this->language, $type, $name, $id);
                 $field_renderer = $this->createFieldRenderer($field_type, $field);
                 return $field;
@@ -84,7 +84,7 @@ class FieldFactory
     {
         $class_name = $this->field_types_namespace . 'FieldRenderer' . $field_type;
         if (!class_exists($class_name)) {
-            $class_name = 'Netshine\Scaffold\View\Form\FieldTypes\FieldRenderer' . $field_type;
+            $class_name = 'Ngaje\Scaffold\View\Form\FieldTypes\FieldRenderer' . $field_type;
         }
 
         if (class_exists($class_name)) {
