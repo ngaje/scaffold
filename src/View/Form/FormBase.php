@@ -83,7 +83,8 @@ class FormBase
         }
     }
 
-    protected function initialise()
+    //protected function initialise()//Causes errors as Protected function
+    public function initialise()
     {
         $this->initialised = true;
     }
