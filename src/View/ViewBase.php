@@ -85,7 +85,7 @@ abstract class ViewBase
             <a href="<?php echo $url; ?>&sort_by=<?php echo $col_name; ?>&sort_reverse=1" onclick="sort_submit('<?php echo $col_name; ?>', true);return false;" style="text-decoration:none;">
             <?php
         } ?>
-        <img src="<?php echo $this->language->routing['bare_entry_url']; ?>&resource=image&id=descending<?php echo $desc_selected ? '_selected' : ''; ?>" alt="<?php echo $this->language->scaffold['ascending']; ?>" />
+        <img src="<?php echo $this->language->routing['bare_entry_url']; ?>&resource=image&id=descending<?php echo $desc_selected ? '_selected' : ''; ?>" alt="<?php echo $this->language->scaffold['descending']; ?>" />
         <?php if (!$desc_selected) { ?>
             </a>
             <?php
