@@ -196,4 +196,19 @@ class Language
     {
         return $this->current_lang;
     }
+    
+    public function getDefaultLanguage()
+	{
+		return $this->default_lang;
+	}
+
+	public function addLanguageFile($property){
+		if (!array_key_exists($property, $this->language_resources)) {
+			$this->language_resources[$property] = new LanguageResource($this, $property, $this->loadLanguageFile($property));
+		}
+		if (!$this->language_resources[$property]) {
+			throw new \Exception('Language file missing (' . $property . ')');
+		}
+	}
+    
 }
