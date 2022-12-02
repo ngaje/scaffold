@@ -12,7 +12,7 @@ class DatabaseConfig
     public $port;
     public $dsn;
 
-    public function __construct($entity_namespace, $entity_path, $host = 'localhost', $username = 'root', $password, $database, $port = 3306, $dsn = '')
+    public function __construct($entity_namespace, $entity_path, $host, $username, $password, $database, $port = 3306, $dsn = '')
     {
         $this->entity_namespace = $entity_namespace;
         $this->entity_path = $entity_path;
