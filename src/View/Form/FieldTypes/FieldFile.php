@@ -6,7 +6,7 @@ use Ngaje\Scaffold\Request;
 
 class FieldFile extends FieldBase
 {
-    public $max_upload_size = 2048; //2MB
+    public $max_upload_size = 4096; //4MB
     public $allowed_types = array('jpg', 'gif', 'png', 'bmp', 'txt', 'pdf', 'odt', 'ods', 'doc', 'csv', 'xls');
     public $orig_file_names = array();
 
