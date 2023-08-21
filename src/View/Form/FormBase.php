@@ -62,8 +62,8 @@ class FormBase
         $this->form_method = $form_method;
         $this->name = $name ? $name : $form_resource;
         $this->id = $id ? $id : $this->name;
-        $submission_id = htmlentities(@$_REQUEST['submission_id']);
-        $this->submission_id = strlen($submission_id) == 13 ? $submission_id : uniqid();
+        $submission_id = isset($_REQUEST['submission_id']) ? htmlentities(@$_REQUEST['submission_id']) : '';
+        $this->submission_id = $submission_id && strlen($submission_id) == 13 ? $submission_id : uniqid();
         $js = htmlentities($language->routing['bare_entry_url'] . '&resource=js&id=form');
         $this->cms->addJavascript($js);
     }
