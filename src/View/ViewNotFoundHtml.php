@@ -8,7 +8,7 @@ class ViewNotFoundHtml extends ViewBase
         if (!headers_sent()) {
             header(@$_SERVER['SERVER_PROTOCOL']." 404 Not Found", true, 404);
         }
-        if (strlen($error_message) == 0) {
+        if (!$error_message) {
             $error_message = $this->language->error['err_page_not_found'];
             if (strlen($error_message) == 0) {
                 $error_message = 'Sorry, that page could not be found!';
@@ -16,7 +16,7 @@ class ViewNotFoundHtml extends ViewBase
         }
 
         $return_link_text = $this->language->error['err_page_not_found_go_back'];
-        if (strlen($return_link_text) == 0) {
+        if (!$return_link_text) {
             $return_link_text = 'Go Back';
         }
 
@@ -25,7 +25,7 @@ class ViewNotFoundHtml extends ViewBase
             <?php
             echo $error_message;
             ?><br /><br /><?php
-            if (strlen($return_link) > 0) {
+            if (!$return_link) {
                 ?>
                 <a href="<?php echo $return_link; ?>"><?php echo $return_link_text; ?></a>
                 <?php
