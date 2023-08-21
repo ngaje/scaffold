@@ -203,7 +203,7 @@ class FormBase
 
     public function createField($type, $name, FieldSet $field_set = null, $caption = null, $help = null, $value = null, $required = false, $maxlength = 0, $attributes = array(), $id = '', $options = array())
     {
-        $field = $this->factory->createField($type, $name, $field_set, strlen($id) > 0 ? $id : $name);
+        $field = $this->factory->createField($type, $name, $field_set, $id && strlen($id) > 0 ? $id : $name);
 
         $caption = $caption === null ? $this->getString($name) : $caption;
         $help = $help === null ? $this->getString($name . '_help') : $help;
