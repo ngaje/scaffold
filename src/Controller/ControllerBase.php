@@ -65,7 +65,7 @@ abstract class ControllerBase implements IController
     {
         if (isset($this->filters) && isset($this->form)) {
             foreach ($this->filters as $key=>$value) {
-                $this->form->preserved_filters[filter_var($key, FILTER_SANITIZE_STRING)] = filter_var($value, FILTER_SANITIZE_STRING);
+                $this->form->preserved_filters[filter_var($key, FILTER_SANITIZE_FULL_SPECIAL_CHARS)] = filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             }
         }
         if (isset($this->form)) {
@@ -81,8 +81,8 @@ abstract class ControllerBase implements IController
     public function executeMethod()
     {
         try {
-            $method = substr($this->request->method, 0, 1) . substr(str_replace(' ', '', ucwords(str_replace('_', ' ', $this->request->method))), 1);
-            if (method_exists($this, $method)) {
+            $method = $this->request->method ? substr($this->request->method, 0, 1) . substr(str_replace(' ', '', ucwords(str_replace('_', ' ', $this->request->method))), 1) : null;
+            if ($method && method_exists($this, $method)) {
                 $this->$method();
             } else {
                 $this->get();
