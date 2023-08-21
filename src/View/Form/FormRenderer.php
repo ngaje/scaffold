@@ -127,7 +127,7 @@ class FormRenderer
         if ($field_set->published) {
             ?>
             <<?php echo $field_set->fieldset_tag; if ($field_set->id && strlen($field_set->id) > 0) {echo ' id="' . $field_set->id . '"';} ?><?php if ($field_set->css_class && strlen($field_set->css_class) > 0) { ?> class="<?php echo $field_set->css_class; ?>"<?php } $this->outputAttributes($field_set->attributes); ?>>
-                <?php if (strlen($field_set->legend) > 0) {
+                <?php if ($field_set->legend && strlen($field_set->legend) > 0) {
                     $legend_tag = $field_set->fieldset_tag == 'fieldset' ? 'legend' : 'div';
                     ?>
                     <<?php echo $legend_tag ?>><?php echo $field_set->legend; ?></<?php echo $legend_tag; ?>>
