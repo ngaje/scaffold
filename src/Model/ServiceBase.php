@@ -28,19 +28,18 @@ class ServiceBase implements \SplSubject
         $this->language = $language;
     }
 
-    public function attach(\SplObserver $observer) {
+    public function attach(\SplObserver $observer):void {
         $this->observers[spl_object_hash($observer)] = $observer;
     }
 
-    public function detach(\SplObserver $observer) {
-
+    public function detach(\SplObserver $observer):void {                                                
         $key = spl_object_hash($observer);
         if (array_key_exists($key, $this->observers)) {
             unset($this->observers[$key]);
         }
     }
 
-    public function notify(EventData $event = null) {
+    public function notify(EventData $event = null):void {
         foreach ($this->observers as $value) {
             $value->update($this, $event);
         }
