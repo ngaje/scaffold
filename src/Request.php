@@ -152,28 +152,28 @@ class Request
         foreach ($_REQUEST as $key=>$value)
         {
             if (substr($key, 0, 7) == 'filter_' && $key != 'filter_go' && $key != 'filter_reset') {
-                $filters[substr($key, 7)] = filter_var($value, FILTER_SANITIZE_STRING);
+                $filters[substr($key, 7)] = filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             }
         }
         return $filters;
     }
 
-    public function getRequestParam($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
+    public function getRequestParam($param, $default_value = null, $filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS)
     {
         return $this->getArrayParam($_REQUEST, $param, $default_value, $filter);
     }
 
-    public function getPostParam($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
+    public function getPostParam($param, $default_value = null, $filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS)
     {
         return $this->getArrayParam($_POST, $param, $default_value, $filter);
     }
 
-    public function getCookie($param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
+    public function getCookie($param, $default_value = null, $filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS)
     {
         return $this->getArrayParam($_COOKIE, $param, $default_value, $filter);
     }
 
-    protected function getArrayParam($array, $param, $default_value = null, $filter = FILTER_SANITIZE_STRING)
+    protected function getArrayParam($array, $param, $default_value = null, $filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS)
     {
         $ret_val = null;
         if(array_key_exists($param, $array)) {
