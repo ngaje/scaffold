@@ -96,6 +96,7 @@ class DomainObjectBase implements \JsonSerializable
         }
     }
 
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         //We can bypass getters when serializing (better performance)
