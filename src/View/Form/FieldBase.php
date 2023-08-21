@@ -94,7 +94,7 @@ class FieldBase
 
     public function setValue($value = '')
     {
-        $this->value = str_replace('"', '&quot;', filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES));
+        $this->value = str_replace('"', '&quot;', filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
     }
 
     public function setValueRaw($value = '')
@@ -109,7 +109,7 @@ class FieldBase
 
     public function setConfirmValue($value = '')
     {
-        $this->confirm_value = str_replace('"', '&quot;', filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES));
+        $this->confirm_value = str_replace('"', '&quot;', filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
     }
 
     public function setConfirmValueRaw($value = '')
