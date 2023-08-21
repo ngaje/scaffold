@@ -20,7 +20,7 @@ class LanguageResource implements \ArrayAccess
         $this->resource_name = $resource;
         $this->resource_elements = $elements;
     }
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value):void
     {
         if (is_null($offset)) {
             $this->resource_elements[] = $value;
@@ -28,21 +28,21 @@ class LanguageResource implements \ArrayAccess
             $this->resource_elements[$offset] = $value;
         }
     }
-    public function offsetExists($offset)
+    public function offsetExists($offset):bool
     {
         return isset($this->resource_elements[$offset]);
     }
-    public function offsetUnset($offset)
+    public function offsetUnset($offset):void
     {
         unset($this->resource_elements[$offset]);
     }
-    public function offsetGet($offset)
+    public function offsetGet($offset):mixed
     {
         static $depth = 1; //Protect against circular references
 
         $value = "";
         $sprintf_tokens = array();
-        if (!isset($this->resource_elements[$offset]) && strpos($offset, '%') !== false) {
+        if ($offset && !isset($this->resource_elements[$offset]) && strpos($offset, '%') !== false) {
             //Extract sprintf tokens
             $sprintf_tokens = explode('%', $offset);
             $offset = array_shift($sprintf_tokens);
