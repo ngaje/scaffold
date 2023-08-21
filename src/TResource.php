@@ -19,7 +19,7 @@ trait TResource
             $resource = $this->getResourceName();
         }
         $string = $this->language->{$resource}[$key];
-        if (strlen($string) == 0) {
+        if (!$string) {
             //Try global
             $string = $this->language->global[$key];
         }
