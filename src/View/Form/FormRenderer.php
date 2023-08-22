@@ -78,7 +78,7 @@ class FormRenderer
                         $key = substr($key, 7);
                     }
                     ?>
-                    <input type="hidden" name="<?php echo filter_var('filter_' . $key, FILTER_SANITIZE_STRING); ?>" value="<?php echo filter_var($value, FILTER_SANITIZE_STRING); ?>" />
+                    <input type="hidden" name="<?php echo filter_var('filter_' . $key, FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>" value="<?php echo filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>" />
                     <?php
                 }
             }
