@@ -205,7 +205,7 @@ class FormBase
     {
         $field = $this->factory->createField($type, $name, $field_set, $id && strlen($id) > 0 ? $id : $name);
 
-        $caption = $caption === null ? $this->getString($name) : $caption;
+        $caption = $caption === null && $type !== 'hidden' ? $this->getString($name) : $caption;
         $help = $help === null ? $this->getString($name . '_help') : $help;
         $attributes = $attributes === null ? array() : $attributes;
 
