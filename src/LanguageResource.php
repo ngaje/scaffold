@@ -58,7 +58,7 @@ class LanguageResource implements \ArrayAccess
                     $parts = explode(':', $token);
                     if (count($parts) == 2) {
                         $token_value = $this->parent_language->{$parts[0]}[$parts[1]];
-                        $value = str_replace('[[' . $token . ']]', $token_value, $value);
+                        $value = $token_value ? str_replace('[[' . $token . ']]', $token_value, $value) : null;
                     }
                 }
             }
