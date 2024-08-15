@@ -13,7 +13,7 @@ class FieldLinkButton extends FieldBase
 
     public function validate(Request $request, &$message = null)
     {
-        if (strlen($this->url) > 0 && $request->getRequestParam($this->name)) { //Button clicked, but javascript disabled
+        if (@strlen($this->url) > 0 && $request->getRequestParam($this->name)) { //Button clicked, but javascript disabled
             if (!headers_sent()) {
                 //Clear the buffers
                 $loopbreaker = 0;
