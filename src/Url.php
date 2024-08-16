@@ -69,7 +69,7 @@ class Url
     */
     public function removeQuerystringParams($keys)
     {
-        $querystring = explode('&', $this->query);
+        $querystring = $this->query ? explode('&', $this->query) : array();
         $new_querystring = array();
         foreach ($querystring as $query_pair)
         {
