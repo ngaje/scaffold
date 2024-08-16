@@ -173,9 +173,9 @@ class FieldRenderer
     {
         if (strlen($this->field->id) > 0) {
             echo ' id="';
-            echo strlen($prefix) > 0 ? $prefix . '_' : '';
+            echo @strlen($prefix) > 0 ? $prefix . '_' : '';
             echo $this->field->id;
-            echo strlen($suffix) > 0 ? '_' . $suffix : '';
+            echo @strlen($suffix) > 0 ? '_' . $suffix : '';
             echo '"';
         }
     }
