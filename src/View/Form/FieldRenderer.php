@@ -185,7 +185,14 @@ class FieldRenderer
         if (count($attributes) > 0) {
             foreach ($attributes as $key=>$value)
             {
-                echo ' ' . $key . '="' . $value . '"';
+                if($key == 'disabled' || $key == 'readonly'){
+                    if($value) {
+                        echo ' ' . $key . '="' . $value . '"';
+                    }
+                }
+                else {
+                    echo ' ' . $key . '="' . $value . '"';
+                }
             }
         }
     }
