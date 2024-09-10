@@ -14,6 +14,8 @@ class TabGroup
     protected $first_tab_id = "";
     /** @var string ID of the tab to be selected automatically */
     public $selected_tab_id = "";
+    /** @var Language **/
+    public $language;
 
     public function __construct(ICms $cms, Language $language)
     {
