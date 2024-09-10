@@ -11,6 +11,7 @@ class Url
     public $path;
     public $query;
     public $fragment;
+    public $full_url;
 
     /** @var string **/
     protected static $cache;
