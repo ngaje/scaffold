@@ -15,6 +15,8 @@ class Request
     public $url;
     /** @var boolean **/
     public $is_bare_request = false;
+    /** @var mixed **/
+    public $request_url;
 
     /**
     * @param string $language_path Path to language files
