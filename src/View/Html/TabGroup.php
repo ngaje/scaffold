@@ -1,6 +1,7 @@
 <?php
 namespace Ngaje\Scaffold\View\Html;
 
+use AllowDynamicProperties;
 use Ngaje\Scaffold\ICms;
 use Ngaje\Scaffold\Language;
 
