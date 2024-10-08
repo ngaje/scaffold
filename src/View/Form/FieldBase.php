@@ -51,6 +51,8 @@ class FieldBase
     public $published = true;
     /** @var boolean Whether or not the field is visible on the form (can still be present, just hidden) **/
     public $visible = true;
+    /** @var boolean **/
+    public $clear_after = true;
 
     /** @var mixed Usually a string, but can be integer, date, or even array (in the case of a multi-select box) **/
     protected $value;
