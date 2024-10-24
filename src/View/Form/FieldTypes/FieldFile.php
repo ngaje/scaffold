@@ -242,11 +242,11 @@ class FieldFile extends FieldBase
         }
 
         //If original file has been deleted, remove it from the file system
-        $orig_file_names = explode(",", $request->getRequestParam('orig_' . $this->name));
+        $orig_file_names = $this->name && $request->getRequestParam('orig_' . $this->name) ? explode(",", $request->getRequestParam('orig_' . $this->name)) : array();
         foreach ($orig_file_names as $orig_file_name)
         {
             if (strlen($orig_file_name) > 0 && $this->value != $orig_file_name && strpos($orig_file_name, '..') === false) {
-                $full_file_name = $this->upload_folder . '/' . filter_var($orig_file_name, FILTER_SANITIZE_STRING);
+                $full_file_name = $this->upload_folder . '/' . filter_var($orig_file_name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 if (file_exists($full_file_name)) {
                     unlink($full_file_name);
                 }
