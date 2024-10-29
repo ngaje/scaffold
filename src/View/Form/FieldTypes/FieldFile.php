@@ -48,7 +48,7 @@ class FieldFile extends FieldBase
     {
         if (parent::validate($request, $message)) {
             $valid = true;
-            if (strlen(@$_FILES[$this->name]['name']) > 0)
+            if (!empty($_FILES[$this->name]['name']) && strlen($_FILES[$this->name]['name']) > 0)
             {
                 if (count($_FILES) > 0)
                 {
