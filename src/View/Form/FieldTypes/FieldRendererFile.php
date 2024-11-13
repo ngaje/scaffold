@@ -8,8 +8,8 @@ class FieldRendererFile extends FieldRenderer
     public function renderControl($type = null, $confirmation = false)
     {
         if ($this->field->getUploadFolder() !== false) {
-            $file_name = htmlentities($this->field->getValue());
-            if (strlen($file_name) > 0) {
+            $file_name = $this->field->getValue() ? htmlentities($this->field->getValue()) : null;
+            if ($file_name && strlen($file_name) > 0) {
                 //File already uploaded to either final destination or staging area - offer to delete
                 echo $file_name;
                 ?>
