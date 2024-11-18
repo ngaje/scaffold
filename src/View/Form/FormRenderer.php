@@ -34,7 +34,7 @@ class FormRenderer
             if (strlen($this->form->error_message) > 0 || $this->form->fieldsInError()) {
                 $this->renderErrorMessage();
             }
-            if (strlen($this->form->message) > 0) {
+            if ($this->form->message && strlen($this->form->message) > 0) {
                 $this->renderMessage();
             }
             $this->form_started = true;
